@@ -1,0 +1,121 @@
+<div nz-row nzGutter="25">
+    <!-- skeleton -->
+    <ng-template #loadingSkeleton>
+      <nz-skeleton class="bg-white dark:bg-white/10 rounded-6 p-[30px] pt-[15px]" [nzShape]="circle" [nzActive]="true"
+        [nzParagraph]="{ rows: 6 }"></nz-skeleton>
+    </ng-template>
+    <!-- skeleton -->
+  
+    <div nz-col nzXs="24" class="mb-[25px]">
+      <ng-container *ngIf="showContent; else loadingSkeleton">
+        <div
+          class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative h-full d-flex">
+          <div
+          class="py-[16px] px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] border-regular dark:border-white/10 border-b d-flex " style="display: flex ;
+              justify-content: space-between;">
+          <h4 class="mb-0 text-lg font-medium text-dark dark:text-white/[.87] d-inline">Add Plan</h4>
+          <div class="d-inline">
+
+            <nz-button-group>
+              <a class="text-white  text-[13px] font-semibold bg-primary border-primary px-[8px] capitalize" nz-button routerLink="/plans/loan-plan-list">Plan List</a>
+            </nz-button-group>
+          </div>
+
+        </div>
+
+          <div class="p-[25px]">
+            <form class="max-w-full" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item nzGutter="25" class="mb-0">
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Plan Name!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtPlanName"
+                            nzRequired
+                          >
+                            Plan Name
+                          </nz-form-label>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtPlanName" formControlName="txtPlanName" Placeholder="Plan Name" />
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Price Amount!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtPriceAmount"
+                            nzRequired
+                          >
+                          Price
+                          </nz-form-label>
+                          <nz-input-group [nzPrefix]="'$'">
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtPriceAmount" formControlName="txtPriceAmount" Placeholder="Amount" />
+                          </nz-input-group>
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Validaty Days!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtPlanName"
+                            nzRequired
+                          >
+                           Validaty Days
+                          </nz-form-label>
+                          <nz-input-group>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtValidatyDay" formControlName="txtValidatyDay" Placeholder="Validaty Amount" />
+                          </nz-input-group>
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input  Max Daily Views!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtPlanName"
+                            nzRequired
+                          >
+                            Max Daily Views
+                          </nz-form-label>
+                          <nz-input-group>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtmaxDailyViews" formControlName="txtmaxDailyViews" Placeholder="Max Daily Views" />
+                          </nz-input-group>
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Per Ad Reward">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtperAdReward"
+                            nzRequired
+                          >
+                            Per Ad Reward
+                          </nz-form-label>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtperAdReward" formControlName="txtperAdReward" Placeholder="Max Repayment Month
+                            " />
+                        </nz-form-control>
+                      </div>
+         
+                      <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control nxMd="8" nzXs="24" class="mb-[10px]" nzErrorTip="The input is not valid Employee Type!">
+                            <nz-form-label class="opacity:0 flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize" nzRequired nzFor="rdlIsActive">Status</nz-form-label>
+                            <nz-radio-group formControlName="rdlIsActive">
+                              <label class="dark:text-white/[.87]" nz-radio nzValue="1">Active</label>
+                              <label class="dark:text-white/[.87]" nz-radio nzValue="2">InActive</label>
+                            </nz-radio-group>
+                          </nz-form-control>
+                          </div>
+                </nz-form-item>
+                <nz-form-item nz-row class="register-area" class="mb-0">
+                  <nz-form-control>
+                    <button class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" nz-button nzType="primary">Submit</button>
+                  </nz-form-control>
+
+                </nz-form-item>
+
+
+              </form>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+     
