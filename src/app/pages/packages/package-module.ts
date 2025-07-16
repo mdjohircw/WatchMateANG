@@ -36,6 +36,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { PackageRoutingModule } from './package-routing.module';
 import { AddPackageComponent } from './add-package/add-package.component';
 import { PackageListComponent } from './package-list/package-list.component';
+
+import { FormsModule } from '@angular/forms';
+
 const antdModule = [
     NzCardModule,
     NzSkeletonModule,
@@ -66,8 +69,8 @@ const antdModule = [
     NzDropDownModule,
     NzIconModule,
     NzMenuModule,
-    NzDropDownModule
-   
+    NzDropDownModule,
+    FormsModule
   
 ]
 
@@ -76,11 +79,11 @@ const antdModule = [
         CommonModule,
         SharedModule,
         PackageRoutingModule,
-        AddPackageComponent,
-        PackageListComponent,
         ...antdModule
     ],
     declarations: [
+        AddPackageComponent,
+        PackageListComponent,
 
     ],
     providers: [

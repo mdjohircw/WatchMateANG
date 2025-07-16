@@ -46,3 +46,27 @@
 
 }
 
+.bkash-main {
+  background-color: #e2136e;
+  color: white;
+}
+
+.bkash-main input[nz-input] {
+  background-color: white;
+  color: #e2136e;
+  font-weight: bold;
+}
+
+.bkash-main input::placeholder {
+  color: #e2136e;
+}
+
+hr {
+  border-top-width: 1px;
+}
+.bkash-main{
+  padding: 20px;
+}
+.bkash-main input {
+  margin: 20px 0px;
+}
