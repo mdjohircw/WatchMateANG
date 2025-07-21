@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { PackageService } from 'src/app/core/services/package.service';
 import { Router, Routes } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-package',
   standalone: false,
@@ -33,6 +34,7 @@ getPackageRequests(): void {
     next: (response) => {
       if (response.statusCode === 200) {
         this.pricing = response.data.map((item: any) => ({
+          packageId: item.packageId,
           planName: item.packageName,
           price: item.price,
           billingType: `Valid ${item.validityDays} Days`,
@@ -65,19 +67,80 @@ getPackageRequests(): void {
     this.router.navigate([`/plans/update`, planId]);  // Adjusted to match lazy-loaded route
   }
 isVisible = false;
-selectedTabIndex = 0; // 0 = Nogod, 1 = Bkash
-transactionIdNagad = '';
-transactionIdBkash = '';
+transactionId = '';
+selectedPackageId: number | null = null;
+selectedPackageprice: number | null = null;
+selectedPackageName: string = '';
+selectedTabIndex: number = 0;
 
-openModal(): void {
+/* openModal(): void {
   this.isVisible = true;
+}
+ */
+isSubmitting: boolean = false;
+
+submit(): void {
+  if (!this.selectedPackageId) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Package Selected',
+      text: 'Please select a package before submitting.'
+    });
+    return;
+  }
+
+if (this.selectedTabIndex === null) {
+  Swal.fire({
+    icon: 'warning',
+    title: 'No Payment Method Selected',
+    text: 'Please select a payment method.'
+  });
+  return;
+}
+  const customerId = Number(sessionStorage.getItem('__customerID__'));
+  const userId = Number(sessionStorage.getItem('__useId__'));
+
+  const postData = {
+    customerId: customerId,
+    userId: userId,
+    packageId: this.selectedPackageId,
+    status: 1, // Assuming you want to set it active
+    payMethodID: this.selectedTabIndex === 0 ? 1 : 2,
+    transctionCode: this.transactionId || '' // You can set this value from your form input
+  };
+
+  this.isSubmitting = true;
+  this.Package.savePackageRequest(postData).subscribe({
+    next: (response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Package request submitted successfully!'
+      });
+      this.isSubmitting = false;
+      this.isVisible = false; // Close modal after success
+    },
+    error: () => {
+      this.isSubmitting = false;
+    }
+  });
+}
+
+
+openModal(packages: any): void {
+  this.selectedPackageId = packages.packageId;
+  this.selectedPackageName = packages.planName;
+  this.selectedPackageprice = packages.price;
+  this.isVisible = true;
+
+  console.log('Selected Package Id ', this.selectedPackageId)
 }
 
 handlesCancel(): void {
   this.isVisible = false;
 }
 
-handleConfirm(): void {
+/* handleConfirm(): void {
   if (this.selectedTabIndex === 0) {
     if (!this.transactionIdNagad) {
       alert('Please enter Nogod Transaction ID');
@@ -92,5 +155,13 @@ handleConfirm(): void {
     console.log('Bkash Transaction ID:', this.transactionIdBkash);
   }
   this.isVisible = false;
+} */
+
+
+copyNumber(number: string): void {
+  navigator.clipboard.writeText(number).then(() => {
+    alert('Number copied to clipboard!');
+  });
 }
+
 }

@@ -109,6 +109,25 @@ export const CommonLayout_ROUTES: Routes = [
         ]
     },
     {
+        path: 'task',
+        data: {
+            title:'Task'
+        },
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path:'',
+                redirectTo:'/dashboard',
+                pathMatch:'full'
+            },
+            {
+                path: '',
+                loadChildren:()=>import('../../pages/task/task-module').then(m=>m.TaskModule)
+            },
+        ]
+    },
+    
+    {
         path: 'custommer',
    
         data: {

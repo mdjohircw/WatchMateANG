@@ -48,7 +48,7 @@
 
             <!-- Action Button -->
             <button
-              nz-button (click)="openModal()"
+              nz-button (click)="openModal(card)"
               class="h-11 px-7 text-white bg-primary hover:bg-primary-hbr rounded-md font-semibold text-sm capitalize">
               {{ card.buttonText }}
             </button>
@@ -57,10 +57,6 @@
           </div>
         </ng-container>
       </div>
-
-
-
-
     </div>
   </div>
 </div>
@@ -68,61 +64,133 @@
   [(nzVisible)]="isVisible"
   nzTitle="Select Payment Method"
   (nzOnCancel)="handlesCancel()"
-  [nzFooter]="null"
+  [nzFooter]="null"   nzClassName="no-padding-modal"
+
 >
   <ng-container *nzModalContent>
-  <nz-tabset [(nzSelectedIndex)]="selectedTabIndex">
-    <nz-tab nzTitle="Nogod">
-      <div class="p-4 rounded-lg bg-orange-100 border border-orange-300 flex flex-col gap-4">
-        <div class="flex justify-between font-bold text-orange-700 text-lg">
-          <span>My App</span>
-          <span>Tk 500</span>
+  <nz-tabset [(nzSelectedIndex)]="selectedTabIndex" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+    <nz-tab nzTitle="Nagad">
+        <div class="p-4 rounded-lg bg-pink-100 border border-pink-300 flex flex-col gap-4">
+        <div class="flex justify-center items-center pb-3 border-b-4" style="border-color: #e68326;">
+          <img src="../../../../assets/images/watchmate/nogod.png" alt="Nagad Logo" class="h-11" />
+        </div>
+        <div class="flex justify-between font-bold text-pink-700 text-lg">
+        <span class="font-bold">{{ selectedPackageName }}</span>
+         <span class="font-bold">TK {{ selectedPackageprice }}</span>
+
         </div>
 
-        <p class="text-center text-orange-700 font-semibold text-xl">ট্রানজেকশন আইডি দিন</p>
-        <input nz-input [(ngModel)]="transactionIdNagad" placeholder="ট্রানজেকশন আইডি দিন" />
+        <div class="nagad-main">
+          <p class="text-center text-pink-700 font-semibold text-lg">ট্রানজেকশন আইডি দিন</p>
+          <input nz-input [(ngModel)]="transactionId" placeholder="ট্রানজেকশন আইডি দিন"
+            class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" />
+        
+          <p class="text-white-800 text-sm leading-6 space-y-3">
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>*247# ডায়াল করে আপনার Nagad মোবাইল <br>(অথবা Nagad App) থেকে Send Money এ ক্লিক করুন।</span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>প্রাপক নম্বর হিসাবে এই নম্বরটি লিখুনঃ <br>
+                <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
+                  01837908296
+                  <i nz-icon nzType="copy" nzTheme="outline" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
+                </span>
+              </span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>টাকার পরিমাণঃ 500</span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="checkt" class="mt-1 text-pink-700"></i>
+              <span>উপরের বক্সে আপনার Transaction ID দিন এবং নিচের Confirm বাটনে ক্লিক করুন।</span>
+            </span>
+        
+          </p>
 
-        <p class="text-gray-800 text-sm leading-6">
-          *167# ডায়াল করুন অথবা Nagad অ্যাপে Send Money করুন।<br><br>
-          প্রাপকঃ <span class="font-bold text-orange-700">01837908296</span><br>
-          পরিমাণঃ 500 টাকা<br>
-          ট্রানজেকশন আইডি দিয়ে Confirm করুন।
-        </p>
+      </div>
 
-        <div class="flex justify-end gap-2 mt-4">
-          <button nz-button (click)="handlesCancel()">Cancel</button>
-          <button nz-button nzType="primary" (click)="handleConfirm()">Confirm</button>
-        </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button nz-button
+        class="cancelButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]"  (click)="handlesCancel()">Cancel</button>
+                <button nz-button [disabled]="isSubmitting" (click)="submit()" class="nagadButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]">
+            <span *ngIf="!isSubmitting">Confirm</span>
+            <span *ngIf="isSubmitting">
+              <i nz-icon nzType="loading"></i> Processing...
+            </span>
+          </button>
+    </div>
       </div>
     </nz-tab>
 
-    <nz-tab nzTitle="Bkash">
+    <nz-tab nzTitle="bKash">
       <div class="p-4 rounded-lg bg-pink-100 border border-pink-300 flex flex-col gap-4">
         <div class="flex justify-center items-center pb-3 border-b-4" style="border-color: #e2136e;">
           <img src="../../../../assets/images/watchmate/Bkash-Logo.png" alt="Bkash Logo" class="h-11" />
         </div>
         <div class="flex justify-between font-bold text-pink-700 text-lg">
-          <span>My App</span>
-          <span>Tk 500</span>
+          <span class="font-bold">{{ selectedPackageName }}</span>
+          <span class="font-bold">TK {{ selectedPackageprice }}</span>
+
         </div>
 
         <div class="bkash-main">
-        <p class="text-center text-pink-700 font-semibold text-xl">ট্রানজেকশন আইডি দিন</p>
-        <input nz-input [(ngModel)]="transactionIdBkash" placeholder="ট্রানজেকশন আইডি দিন" class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" />
+          <p class="text-center text-pink-700 font-semibold text-lg">ট্রানজেকশন আইডি দিন</p>
+          <input nz-input [(ngModel)]="transactionId" placeholder="ট্রানজেকশন আইডি দিন"
+            class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" />
+          <p class="text-white-800 text-sm leading-6 space-y-3">
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>*247# ডায়াল করে আপনার Bkash মোবাইল <br>(অথবা Bkash App) থেকে Send Money এ ক্লিক করুন।</span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>প্রাপক নম্বর হিসাবে এই নম্বরটি লিখুনঃ <br>
+                <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
+                  01837908296
+                  <i nz-icon nzType="copy" nzTheme="outline" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
+                </span>
+              </span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
+              <span>টাকার পরিমাণঃ 500</span>
+            </span>
+        
+            <span class="flex items-start gap-2">
+              <i nz-icon nzType="checkt" class="mt-1 text-pink-700"></i>
+              <span>উপরের বক্সে আপনার Transaction ID দিন এবং নিচের Confirm বাটনে ক্লিক করুন।</span>
+            </span>
+        
+          </p>
 
-        <p class="text-white-800 text-sm leading-6">
-          *247# ডায়াল করুন অথবা Bkash অ্যাপে Send Money করুন।<br><br>
-          প্রাপকঃ <span class="font-bold text-pink-700">01837908296</span><br>
-          পরিমাণঃ 500 টাকা<br>
-          ট্রানজেকশন আইডি দিয়ে Confirm করুন।
-        </p>
       </div>
 
 
-        <div class="flex justify-end gap-2 mt-4">
-          <button nz-button (click)="handlesCancel()">Cancel</button>
-          <button nz-button nzType="primary" (click)="handleConfirm()">Confirm</button>
-        </div>
+    <div class="flex justify-end gap-2 mt-4">
+      <button nz-button
+        class="cancelButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]"  (click)="handlesCancel()">Cancel</button>
+
+
+        
+          <button nz-button [disabled]="isSubmitting" (click)="submit()"  class="bkashButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]">
+            <span *ngIf="!isSubmitting">Confirm</span>
+            <span *ngIf="isSubmitting">
+              <i nz-icon nzType="loading"></i> Processing...
+            </span>
+          </button>
+
+    </div>
       </div>
     </nz-tab>
   </nz-tabset>

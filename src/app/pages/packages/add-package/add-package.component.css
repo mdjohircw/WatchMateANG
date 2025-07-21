@@ -49,6 +49,7 @@
 .bkash-main {
   background-color: #e2136e;
   color: white;
+  padding: 20px;
 }
 
 .bkash-main input[nz-input] {
@@ -64,9 +65,61 @@
 hr {
   border-top-width: 1px;
 }
-.bkash-main{
-  padding: 20px;
-}
+
 .bkash-main input {
   margin: 20px 0px;
+}
+.bkashButton{
+  background-color: #e2136e;
+  border: #e2136e;
+  border: 1px solid;
+  
+}
+.bkashButton :hover{
+  background-color: #d12e75;
+}
+.nagadButton{
+  background-color: #f6921e;
+  border: #f6921e;
+  border: 1px solid;
+  
+}
+.nagadButton :hover{
+  background-color: #f6921e;
+}
+
+.cancelButton{
+    background-color: #c2b3b9;
+  border: #c2b3b9;
+  border: 1px solid;
+}
+.cancelButton :hover{
+  background-color: #c7a8b5;
+}
+
+.nagad-main{
+  background-color: #f6921e;
+  color: white;
+  padding: 20px;
+}
+
+.nagad-main input[nz-input] {
+  background-color: white;
+  color: #f6921e;
+  font-weight: bold;
+}
+
+.nagad-main input {
+  margin: 20px 0px;
+}
+
+.nagadButton{
+  background-color: #f6921e;
+  border: #f6921e;
+  border: 1px solid;
+  
+}
+::ng-deep .no-padding-modal .ant-modal-body {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }

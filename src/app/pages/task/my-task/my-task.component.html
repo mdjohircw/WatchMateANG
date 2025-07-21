@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+
+<div class="flex justify-center items-center min-h-screen bg-black" *ngIf="!isLoading && allDatas.length > 0">
+
+  <div class="relative w-full max-w-md h-screen flex items-center justify-center">
+
+    <!-- Left Floating Action Buttons -->
+<div class="absolute right-2 transform -translate-y-1/2 flex flex-col gap-4 text-white z-20" style="margin-top: 90%;">
+  <button class="bg-white bg-opacity-20 rounded-full p-3 hover:bg-opacity-40 transition" (click)="likeVideo()">
+    <i class="uil uil-thumbs-up text-2xl"></i>
+  </button>
+  <button class="bg-white bg-opacity-20 rounded-full p-3 hover:bg-opacity-40 transition" (click)="shareVideo()">
+    <i class="uil uil-share text-2xl"></i>
+  </button>
+    <button class="bg-white bg-opacity-20 rounded-full p-3 hover:bg-opacity-40 transition" (click)="shareVideo()">
+    <i class="uil uil-shopping-bag text-2xl"></i>
+  </button>
+</div>
+
+    <!-- Video Display -->
+
+<div class="relative w-full h-[90vh]">
+  <video
+    #videoPlayer
+    [src]="allDatas[currentIndex]?.videoUrl"
+    autoplay
+    loop
+    playsinline
+    class="w-full h-[90vh] object-cover rounded-lg"
+  ></video>
+
+  <!-- Volume Progress Bar -->
+  <div class="absolute top-4 left-4 flex items-center space-x-2 bg-black/60 px-3 py-2 rounded-lg text-white">
+    <!-- Mute/Unmute -->
+    <button (click)="toggleMute(videoPlayer)">
+      {{ videoPlayer.muted ? '🔇' : '🔊' }}
+    </button>
+
+    <!-- Volume Slider -->
+    <input 
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      [value]="videoPlayer.volume"
+      (input)="changeVolume(videoPlayer, $event)"
+      class="w-32 h-1 accent-white"
+    />
+    <span>{{ (videoPlayer.volume * 100) | number: '1.0-0' }}%</span>
+  </div>
+</div>
+
+
+    <!-- Bottom Video Info -->
+    <div class="absolute bottom-0 bg-gradient-to-t from-black via-transparent to-transparent w-full p-4 text-white">
+      <h2 class="text-xl font-bold mb-1">{{ allDatas[currentIndex]?.title }}</h2>
+      <p class="text-sm">Reward: {{ allDatas[currentIndex]?.rewardPerView }} coins</p>
+      <p class="text-sm">Valid: {{ allDatas[currentIndex]?.startDate | date }} - {{ allDatas[currentIndex]?.endDate | date }}</p>
+    </div>
+
+    <!-- Previous & Next Buttons -->
+    <button
+      class="absolute left-0 top-1/2 -translate-y-1/2 px-4 py-10 text-white text-3xl font-bold bg-black bg-opacity-30 hover:bg-opacity-60 z-20"
+      (click)="prevVideo()"
+      [disabled]="currentIndex === 0"
+    >
+      ‹
+    </button>
+
+    <button
+      class="absolute right-0 top-1/2 -translate-y-1/2 px-4 py-10 text-white text-3xl font-bold bg-black bg-opacity-30 hover:bg-opacity-60 z-20"
+      (click)="nextVideo()"
+      [disabled]="currentIndex === allDatas.length - 1"
+    >
+      ›
+    </button>
+
+  </div>
+
+</div>

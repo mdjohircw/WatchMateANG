@@ -44,7 +44,7 @@ export const CustomerProfileMatch: CanMatchFn = () => {
   // Normal user without customer ID — show message and block access
   if (DataAccessLevel === '1' && (customerID === 'null' || customerID === '')) {
     message.warning('Please first add your personal information.');
-    return false;
+    return true;
   }
   else{
     return true;

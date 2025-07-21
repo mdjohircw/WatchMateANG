@@ -38,6 +38,7 @@
     "@fullcalendar/list": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
     "@tinymce/tinymce-angular": "^5.0.0",
+    "@videogular/ngx-videogular": "^10.0.1",
     "angular-svg-icon": "^17.0.0",
     "apexcharts": "^3.54.1",
     "bootstrap": "^5.3.5",
