@@ -35,13 +35,22 @@ getRechargeRequests(): void {
     }
   });
 }
+isRewardModalVisible = false;
 
 nextVideo(): void {
   if (this.currentIndex < this.allDatas.length - 1) {
     this.currentIndex++;
+  } else if (this.currentIndex === this.allDatas.length - 1) {
+    // Last video reached
+    this.isRewardModalVisible = true;
   }
 }
-
+rewardCoins = 50;
+getReward(): void {
+  console.log('Reward Claimed:', this.rewardCoins);
+  this.isRewardModalVisible = false;
+  // ✅ You can add your reward API logic here
+}
 prevVideo(): void {
   if (this.currentIndex > 0) {
     this.currentIndex--;
