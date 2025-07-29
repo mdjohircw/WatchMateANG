@@ -1,4 +1,125 @@
-.ant-input-affix-wrapper {
+
+  
+
+  .order-summary-details .discount {
+    color: #ff4d4f; /* Example color for discount */
+  }
+
+  .main-form{
+    display: flex;
+  }
+  .custome{
+    margin: 0 0 7px 0;
+  }
+  .ant-input-affix-wrapper {
     padding: 0px 12px !important;
     border-radius: 6px;
+}
+
+  .text-Reject {
+    --tw-text-opacity: 1 !important;
+    color: rgb(255 15 15 / 1  ) !important;
+    background-color: rgba(255, 15, 15, 0.1) !important;
+}
+
+
+.text-Approve {
+    --tw-text-opacity: 1 !important;
+    color: rgb(1 184 26 / 1 ) !important;
+    background-color: rgba(1, 184, 26, 0.1) !important;
+}
+
+
+
+.text-Processing {
+    --tw-text-opacity: 1 !important;
+    color: rgb(126, 23, 185) !important;
+    background-color: rgba(250, 139, 12, 0.1) !important;
+}
+
+
+
+.text-Pending {
+    --tw-text-opacity: 1 !important;
+    color: rgb(19, 143, 201) !important;
+    background-color: rgba(12, 135, 250, 0.1) !important;
+
+}
+
+.bkash-main {
+  background-color: #e2136e;
+  color: white;
+  padding: 20px;
+}
+
+.bkash-main input[nz-input] {
+  background-color: white;
+  color: #e2136e;
+  font-weight: bold;
+}
+
+.bkash-main input::placeholder {
+  color: #e2136e;
+}
+
+hr {
+  border-top-width: 1px;
+}
+
+.bkash-main input {
+  margin: 20px 0px;
+}
+.bkashButton{
+  background-color: #e2136e;
+  border: #e2136e;
+  border: 1px solid;
+  
+}
+.bkashButton :hover{
+  background-color: #d12e75;
+}
+.nagadButton{
+  background-color: #f6921e;
+  border: #f6921e;
+  border: 1px solid;
+  
+}
+.nagadButton :hover{
+  background-color: #f6921e;
+}
+
+.cancelButton{
+    background-color: #c2b3b9;
+  border: #c2b3b9;
+  border: 1px solid;
+}
+.cancelButton :hover{
+  background-color: #c7a8b5;
+}
+
+.nagad-main{
+  background-color: #f6921e;
+  color: white;
+  padding: 20px;
+}
+
+.nagad-main input[nz-input] {
+  background-color: white;
+  color: #f6921e;
+  font-weight: bold;
+}
+
+.nagad-main input {
+  margin: 20px 0px;
+}
+
+.nagadButton{
+  background-color: #f6921e;
+  border: #f6921e;
+  border: 1px solid;
+  
+}
+::ng-deep .no-padding-modal .ant-modal-body {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }

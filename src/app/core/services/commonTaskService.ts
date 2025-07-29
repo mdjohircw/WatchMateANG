@@ -7,6 +7,8 @@ import { response } from 'express';
 import { GenericHttpService } from './generic-http.service';
 import { IApiResponse } from '../models/interfaces/IApiResponse';
 import { S } from '@fullcalendar/core/internal-common';
+import { ICustomerIDName } from '../models/interfaces/ICustomerIDName';
+
 @Injectable({
     providedIn: 'root'
   })
@@ -21,6 +23,8 @@ export class commonTaskService {
     private GET_GROUP_API_CALL_Url: string;
     private GET_EMP_CARD_NO_API_CALL_Url: string;
     private GET_DYNAMIC_MENU_API_CALL_Url: string;
+    private GET_ALL_CUSTOMMER_ID_NAME :string;
+    private customerId: string | null;
 
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.companyId = sessionStorage.getItem('__companyId__');
@@ -32,6 +36,9 @@ export class commonTaskService {
       this.GET_DESIGNATION_API_CALL_Url = `api/Designation/basicInfo?CompanyId=${this.companyId}`;
       this.GET_EMP_CARD_NO_API_CALL_Url = `api/Employee/cardNo?CompanyId=${this.companyId}`;
       this.GET_DYNAMIC_MENU_API_CALL_Url = `api/User/dynamicMenu?userId=10&DataAccessLevel=${this.DataAccessLevel}`;
+
+      this. GET_ALL_CUSTOMMER_ID_NAME = `api/Custommer/custommerSummary`;
+      this.customerId = sessionStorage.getItem('__customerID__');
     }
    
     getCompaniesApiCall(): Observable<any> {
@@ -140,4 +147,20 @@ export class commonTaskService {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
       }
+
+
+  getCustommerIdName(): Observable<IApiResponse<ICustomerIDName[]>> {
+
+    const url = `${this.GET_ALL_CUSTOMMER_ID_NAME}?customerId=${this.customerId}`;
+
+    return this.genericHttpService.getAll<IApiResponse<ICustomerIDName[]>>(url).pipe(
+      map(response => {
+        // Ensure the response is not an array
+        if (Array.isArray(response)) {
+          return response[0]; // Take the first response if it's an array
+        }
+        return response;
+      })
+    );
+  }
 }

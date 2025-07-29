@@ -1,93 +1,141 @@
-<div nz-row nzJustify="center">
-  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="16" nzXl="12">
-    <div class="steps-content mt-[44px] border-dashed border-1 border-normal dark:border-white/10 p-[30px]  rounded-10 min-h-[200px] pt-[30px]" style="background-color: #ffffff;">
+<div class="max-w-3xl mx-auto p-6 bg-white p-6 rounded-lg shadow-lg">
 
-<div>
-  <h4 class="text-[20px] font-medium mb-[20px] text-dark dark:text-white/[.87]">Withdraw Request</h4>
-  <form class="max-w-full" [formGroup]="validateForm" (ngSubmit)="submitWithdraw()">
-    <nz-form-control class="mb-[20px]" nzErrorTip="Please Select The Borrower!">
-      <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-        nzFor="ddlCustommer" nzRequired>
-        Borrower
-      </nz-form-label>
-      <nz-select formControlName="ddlCustommer" [nzShowSearch]="true" nzPlaceHolder="Select borrower"
-        class="w-full capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60"
-        name="ddlCustommer">
-        <nz-option *ngFor="let customer of CustomerIdName"
-        [nzValue]="customer.customerID"
-        [nzLabel]="customer.fullName"></nz-option>
-      </nz-select>
-    </nz-form-control>
-<nz-form-control class="mb-[20px]" nzErrorTip="Please Select The Payment Method!">
-    <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-        nzFor="ddlPaymentMethod" nzRequired>
-        Payment Method
-      </nz-form-label>
-      <nz-select formControlName="ddlPaymentMethod" [nzShowSearch]="true" nzPlaceHolder="Payment Method"
-        class="w-full capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60"
-        name="ddlPaymentMethod">
-        <nz-option *ngFor="let method of paymentMethods"
-        [nzValue]="method.id"
-        [nzLabel]="method.name"></nz-option>
-      </nz-select>
-    </nz-form-control>
+  <nz-tabset [(nzSelectedIndex)]="selectedTabIndex">
+    <!-- Nagad Tab -->
+    <nz-tab nzTitle="Nagad">
+      <div class="rounded-lg bg-pink-50 border border-pink-300 p-6 space-y-6">
 
-<!--     <nz-form-control class="mb-[20px]" nzErrorTip="Bank Name is Required">
-      <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-       nzRequired nzFor="txtBankName">Bank or Cripto Name</nz-form-label>
-      <input
-        class="w-full rounded-6 border-regular border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
-        nz-input formControlName="txtBankName" id="txtBankName" placeholder="Bank Name" />
-    </nz-form-control> -->
-<nz-form-control class="mb-[20px]" nzErrorTip="Please Select The Bank/Cripto Name!">
-    <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-        nzFor="ddlBank" nzRequired>
-        Bank/Cripto Name
-      </nz-form-label>
-          <nz-select formControlName="ddlBank" nzPlaceHolder="Select Bank"
-                class="w-full capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 
-                      [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none 
-                      [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] 
-                      [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] 
-                      [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60">
-                <nz-option *ngFor="let bank of rechargeAccounts" [nzValue]="bank.id"
-                  [nzLabel]="bank.bankOrWalletName"></nz-option>
-          </nz-select>
-    </nz-form-control>
+        <!-- Logo -->
+        <div class="flex justify-center border-b-4 pb-4 border-yellow-500">
+          <img src="assets/images/watchmate/nogod.png" alt="Nagad Logo" class="h-12" />
+        </div>
 
-    <nz-form-control class="mb-[20px]" nzErrorTip="The Account No Is Required">
-      <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-       nzRequired nzFor="txtAccountNo">Bank AC No/crypto Address</nz-form-label>
-      <input
-        class="w-full rounded-6 border-regular border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
-        nz-input formControlName="txtAccountNo" id="txtAccountNo" placeholder="Bank AC No/crypto Address" />
-    </nz-form-control>
-  
+        <!-- Input: Amount -->
+       <div class="nagad-main">
+         <div>
+          <label class="block text-sm font-medium text-pink-800 mb-1">Amount (TK)</label>
+          <input nz-input type="number" [(ngModel)]="withdrawAmount"
+                 placeholder="Enter amount"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
 
-    <nz-form-control class="mb-[20px]" nzErrorTip="The Amount Is Required">
-      <nz-form-label
-        class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 p-0 [&>label]:text-[16px] capitalize"
-       nzRequired nzFor="txtAmount">Amount</nz-form-label>
-       <nz-input-group [nzPrefix]="'$'">
-      <input
-        class="w-full rounded-6 border-regular border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
-        nz-input formControlName="txtAmount" id="txtAmount" placeholder="Amount" />
-        </nz-input-group>
-    </nz-form-control>
-    <!-- Submit Button -->
-    <div class="text-right mt-6">
-      <button nz-button nzType="primary" htmlType="submit" [disabled]="validateForm.invalid">
-        Submit Request
-      </button>
-    </div>
-  </form>
+        <!-- Input: Transaction ID -->
+        <div>
+          <label class="block text-sm font-medium text-pink-800 mb-1">Nagad Ac Number</label>
+          <input nz-input [(ngModel)]="txtAccountNo"
+                 placeholder="Nagad Ac Number"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
 
-</div>
-</div>
-</div>
+        <!-- Instructions -->
+        <div class="text-sm text-gray-700 space-y-3 mt-4">
+          <p class="font-semibold text-pink-800">How to pay with Nagad:</p>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="check-circle" class="text-pink-600 mt-1"></i>
+            <span>Dial *247# or use Nagad App to Send Money.</span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="user" class="text-pink-600 mt-1"></i>
+            <span>
+              Recipient Number:
+              <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
+                01837908296
+                <i nz-icon nzType="copy" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
+              </span>
+            </span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="credit-card" class="text-pink-600 mt-1"></i>
+            <span>Send the exact amount as entered above.</span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="info-circle" class="text-pink-600 mt-1"></i>
+            <span>Then paste the Transaction ID and click Confirm.</span>
+          </div>
+        </div>
+
+       </div>
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-3 pt-6">
+          <button nz-button class="cancelButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" (click)="clearForm()">Cancel</button>
+          <button nz-button [disabled]="isSubmitting" class=" bkashButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" (click)="submit()">
+            <span *ngIf="!isSubmitting">Confirm</span>
+            <span *ngIf="isSubmitting"><i nz-icon nzType="loading"></i> Processing...</span>
+          </button>
+        </div>
+      </div>
+    </nz-tab>
+
+    <!-- bKash Tab -->
+    <nz-tab nzTitle="bKash">
+      <div class="rounded-lg bg-pink-50 border border-pink-300 p-6 space-y-6">
+        <!-- Logo -->
+        <div class="flex justify-center border-b-4 pb-4 border-pink-500">
+          <img src="assets/images/watchmate/Bkash-Logo.png" alt="bKash Logo" class="h-12" />
+        </div>
+
+        <!-- Input: Amount -->
+        <div class="bkash-main">
+          <div>
+          <label class="block text-sm font-medium text-pink-800 mb-1">Amount (TK)</label>
+          <input nz-input type="number" [(ngModel)]="withdrawAmount"
+                 placeholder="Enter amount"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <!-- Input: Transaction ID -->
+        <div>
+          <label class="block text-sm font-medium text-pink-800 mb-1">bKash Ac No</label>
+          <input nz-input [(ngModel)]="txtAccountNo"
+                 placeholder="bKash Ac No"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <!-- Instructions -->
+        <div class="text-sm text-gray-700 space-y-3 mt-4">
+          <p class="font-semibold text-pink-800">How to pay with bKash:</p>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="check-circle" class="text-pink-600 mt-1"></i>
+            <span>Use bKash app or dial *247# to Send Money.</span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="user" class="text-pink-600 mt-1"></i>
+            <span>
+              Recipient Number:
+              <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
+                01837908296
+                <i nz-icon nzType="copy" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
+              </span>
+            </span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="credit-card" class="text-pink-600 mt-1"></i>
+            <span>Send the exact amount shown above.</span>
+          </div>
+
+          <div class="flex items-start gap-2">
+            <i nz-icon nzType="info-circle" class="text-pink-600 mt-1"></i>
+            <span>Then enter your Transaction ID and click Confirm.</span>
+          </div>
+        </div>
+
+        </div>
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-3 pt-6">
+          <button nz-button class="cancelButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" (click)="clearForm()">Cancel</button>
+          <button nz-button [disabled]="isSubmitting" class=" bkashButton text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" (click)="submit()">
+            <span *ngIf="!isSubmitting">Confirm</span>
+            <span *ngIf="isSubmitting"><i nz-icon nzType="loading"></i> Processing...</span>
+          </button>
+        </div>
+      </div>
+    </nz-tab>
+  </nz-tabset>
 </div>

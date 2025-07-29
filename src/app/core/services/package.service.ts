@@ -24,6 +24,7 @@ export class PackageService {
     private GET_RECHARGE_BYE_ID = `api/Recharge/recharge`;
     private GET_PACKGE_BYE_CUSTOMERID = `api/CustomerPackage/get-customer-package`;
     private GET_VIDEO_BYE_CUSTOMERID = `api/Video/videos`;
+    private POST_VIDEO_REWARD = `api/Video/videos/reward?`;
 
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.userId = sessionStorage.getItem('__useId__');
@@ -93,5 +94,21 @@ export class PackageService {
       );
     }
 
+    saveVideoReward(postData: any): Observable<any> {
+      const url = `${this.POST_VIDEO_REWARD}`; // Use template literal for better readability
+      return this.genericHttpService.create(url, postData).pipe(
+        catchError((error) => {
+          console.error('Error occurred while saving Loan application:', error);
+          const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+             console.log(errorMessage);
+             Swal.fire({
+               icon: 'warning',
+               title: 'Submission Failed',
+               text: errorMessage
+             });
+          return throwError(() => new Error('Failed to save Loan application'));
+        })
+      );
+    }
 
 }

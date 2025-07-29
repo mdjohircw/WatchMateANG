@@ -54,10 +54,6 @@ export class PackageListComponent {
       });
     }
   
-  
-  
-
-  
 
     editcustommer(planId: any) {
       console.log("Edit Customer clicked", planId);

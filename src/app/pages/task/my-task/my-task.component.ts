@@ -35,21 +35,35 @@ getRechargeRequests(): void {
     }
   });
 }
-isRewardModalVisible = false;
 
+isRewardModalVisible = false;
 nextVideo(): void {
   if (this.currentIndex < this.allDatas.length - 1) {
     this.currentIndex++;
   } else if (this.currentIndex === this.allDatas.length - 1) {
-    // Last video reached
-    this.isRewardModalVisible = true;
+ const currentVideo = this.allDatas[this.currentIndex];
+    const postData = {
+      customerId: currentVideo.customerId,
+      accountNo: currentVideo.id,
+      perAdReward: currentVideo.perDayReward
+    };
+
+    this.Package.saveVideoReward(postData).subscribe({
+      next: (response) => {
+        this.isRewardModalVisible = true;
+      },
+      error: (err) => {
+        console.error('Error saving reward:', err);
+      }
+    });
   }
 }
+
 rewardCoins = 50;
 getReward(): void {
   console.log('Reward Claimed:', this.rewardCoins);
+  this.currentIndex;
   this.isRewardModalVisible = false;
-  // ✅ You can add your reward API logic here
 }
 prevVideo(): void {
   if (this.currentIndex > 0) {
@@ -63,7 +77,7 @@ toggleMute(video: HTMLVideoElement) {
 changeVolume(video: HTMLVideoElement, event: Event) {
   const target = event.target as HTMLInputElement;
   video.volume = parseFloat(target.value);
-  video.muted = video.volume === 0; // auto mute if volume is 0
+  video.muted = video.volume === 0; 
 }
 likeVideo(): void {
   console.log('Liked video:', this.allDatas[this.currentIndex]?.title);

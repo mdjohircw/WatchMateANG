@@ -8,6 +8,7 @@ import { RechargeService } from 'src/app/core/services/recharge.service';
 import { ICustomerIDName } from 'src/app/core/models/interfaces/ICustomerIDName';
 import Swal from 'sweetalert2';
 import { WithdrawService } from 'src/app/core/services/withdraw.service';
+import { commonTaskService } from 'src/app/core/services/commonTaskService';
 
 @Component({
   selector: 'app-reachrage',
@@ -17,86 +18,68 @@ import { WithdrawService } from 'src/app/core/services/withdraw.service';
   styleUrl: './withdraw.component.css'
 })
 export class WithdrawComponent implements OnInit {
-  isLoading = true;
-  validateForm!: FormGroup;
-  paymentMethods: { id: number, name: string }[] = [];
-  rechargeAccounts: any[] = [];
-  selectRechargeAccount: number = 0;
-  fileList: NzUploadFile[] = [];
-  allFilesBase64: { name: string; base64: string }[] = [];
-  constructor(private fb: FormBuilder, private withdrawService: WithdrawService,private loanService: LoanService,  private message: NzMessageService) {}
+
+
+selectedTabIndex = 0;
+withdrawAmount: number = 0;
+txtAccountNo: string = '';
+isSubmitting = false;
+  constructor(private fb: FormBuilder, private withdrawService: WithdrawService, private message: NzMessageService, private comonService : commonTaskService) {}
 
   ngOnInit(): void {
-    // Load payment methods
-    this.getCustommer();
-    this.getPaymentMethods();
 
-    // Initialize the form group
-    this.validateForm = this.fb.group({
-      ddlCustommer:[null , [Validators.required]],
-      ddlPaymentMethod: [null, [Validators.required]],
-      ddlBank: [null, [Validators.required]],
-      txtAccountNo: [null, [Validators.required]],
-      txtAmount: [null, [Validators.required]],
-    });
 
-        this.validateForm.get('ddlPaymentMethod')?.valueChanges.subscribe(
-      (paymentMethodId) => {
-        this.onPaymentMethodChange(paymentMethodId);
-      }
-    );
 
-  
   }
+copyNumber(number: string): void {
+  navigator.clipboard.writeText(number);
+  // Optionally: show toast
+}
 
+clearForm(): void {
+  this.withdrawAmount = 0;
+  this.txtAccountNo = '';
+}
 
-    onPaymentMethodChange(paymentMethodId: number): void {
-    if (paymentMethodId) {
-      this.loanService.getRechargeAccountsByPaymentType(paymentMethodId).subscribe(
-        (response: any) => {
-          if (response.statusCode === 200) {
-            const activeAccounts = response.data.filter((acc) => acc.isActive);
-            this.rechargeAccounts = [
-              { id: null, bankOrWalletName: '---Select---' },
-              ...activeAccounts,
-            ];
-            this.validateForm.get('ddlBank')?.setValue(null); // Reset bank selection
-          } else {
-            console.error('Error fetching recharge accounts:', response.message);
-          }
-        },
-        (error) => {
-          console.error('API Error:', error);
-          this.rechargeAccounts = [];
-        }
-      );
-    } else {
-      this.rechargeAccounts = [];
-    }
+submit(): void {
+  if (!this.withdrawAmount || !this.txtAccountNo) {
+    return;
   }
-
-
-  // Get the list of payment methods from the service
-  getPaymentMethods() {
-    this.loanService.getPaymentMethods().subscribe((res) => {
-      if (res.statusCode === 200) {
-        this.paymentMethods = res.data;
-      }
-    });
-  }
-  bankDetails: any = {
-    accountName: '',
-    accountNumber: ''
+  const customerId = Number(sessionStorage.getItem('__customerID__'));
+  const userId = Number(sessionStorage.getItem('__useId__'));
+    const postData = {
+    custommerID: customerId,
+    userId: userId,
+    paymentMethodID: this.selectedTabIndex === 0 ? 1 : 2,
+    amount: this.withdrawAmount,
+    accountNumber: this.txtAccountNo,
   };
-  
+  this.isSubmitting = true;
+  this.withdrawService.saveWithdrawRequest(postData).subscribe({
+    next: (response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'withdraw request submitted successfully!'
+      });
+      this.isSubmitting = false;
+    },
+    error: () => {
+      this.isSubmitting = false;
+    }
+  });
+}
 
-  
+
+
+
+
  
-  CustomerIdName: { customerID: number, fullName: string }[] = [];
+ CustomerIdName: { customerID: number, fullName: string }[] = [];
 
   selectCustomer: number = 0;
   getCustommer() {
-    this.loanService.getCustommerIdName().subscribe(
+    this.comonService.getCustommerIdName().subscribe(
       (response: IApiResponse<ICustomerIDName[]>) => {
         if (response.statusCode === 200) {
 
@@ -112,46 +95,6 @@ export class WithdrawComponent implements OnInit {
     );
   }
   
-  // Handle form submission
-  submitWithdraw(): void {
-    if (this.validateForm.invalid) {
-      this.validateForm.markAllAsTouched();
-      return;
-    }
-     const userId = Number(sessionStorage.getItem('__useId__')); // <-- Get user ID from session
-
-    if (!userId) {
-      this.message.error('User session expired. Please log in again.');
-      return;
-    }
-    this.isLoading = true;
-  
-    const withdrawData = {
-      paymentMethodID: this.validateForm.value.ddlPaymentMethod,
-      bankName: String(this.validateForm.value.ddlBank),
-      accountNumber: this.validateForm.value.txtAccountNo,
-      amount: this.validateForm.value.txtAmount,
-      custommerID: this.validateForm.value.ddlCustommer,
-      userId:userId,
-    };
-  
-    this.withdrawService.saveWithdrawRequest(withdrawData).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        console.log('Withdraw request submitted successfully', response);
-  
-        Swal.fire('Success', 'Withdraw request submitted successfully!', 'success');
-        this.validateForm.reset();
-      },
-      error: (error) => {
-        this.isLoading = false;
-        console.error('Error submitting withdraw request:', error);
-  
-      }
-    });
-  }
-  
-
 
 
 }
