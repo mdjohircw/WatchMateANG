@@ -37,7 +37,7 @@ export class commonTaskService {
       this.GET_EMP_CARD_NO_API_CALL_Url = `api/Employee/cardNo?CompanyId=${this.companyId}`;
       this.GET_DYNAMIC_MENU_API_CALL_Url = `api/User/dynamicMenu?userId=10&DataAccessLevel=${this.DataAccessLevel}`;
 
-      this. GET_ALL_CUSTOMMER_ID_NAME = `api/Custommer/custommerSummary`;
+      this. GET_ALL_CUSTOMMER_ID_NAME = `api/CustomerInfo/custommerIdName`;
       this.customerId = sessionStorage.getItem('__customerID__');
     }
    

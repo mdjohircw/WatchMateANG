@@ -12,8 +12,19 @@
 
         <!-- Input: Amount -->
        <div class="nagad-main">
+      <div id="CustomeSection" *ngIf="dataAccessLevel !== 1">
+        <label class="block text-sm font-medium text-pink-800">Customer </label> 
+      <nz-select formControlName="ddlCustommer" [nzShowSearch]="true" nzPlaceHolder="Select Customer"
+        class="w-full capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60"
+        name="ddlCustommer">
+        <nz-option *ngFor="let customer of CustomerIdName"
+        [nzValue]="customer.customerID"
+        [nzLabel]="customer.fullName"></nz-option>
+      </nz-select>
+      </div>
+
          <div>
-          <label class="block text-sm font-medium text-pink-800 mb-1">Amount (TK)</label>
+          <label class="block text-sm font-medium text-pink-800">Amount (TK)</label>
           <input nz-input type="number" [(ngModel)]="withdrawAmount"
                  placeholder="Enter amount"
                  class="w-full px-4 py-2 border border-gray-300 rounded-md" />
@@ -21,43 +32,23 @@
 
         <!-- Input: Transaction ID -->
         <div>
-          <label class="block text-sm font-medium text-pink-800 mb-1">Nagad Ac Number</label>
+          <label class="block text-sm font-medium text-pink-800">Nagad Ac Number</label>
           <input nz-input [(ngModel)]="txtAccountNo"
                  placeholder="Nagad Ac Number"
                  class="w-full px-4 py-2 border border-gray-300 rounded-md" />
         </div>
 
         <!-- Instructions -->
-        <div class="text-sm text-gray-700 space-y-3 mt-4">
-          <p class="font-semibold text-pink-800">How to pay with Nagad:</p>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="check-circle" class="text-pink-600 mt-1"></i>
-            <span>Dial *247# or use Nagad App to Send Money.</span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="user" class="text-pink-600 mt-1"></i>
-            <span>
-              Recipient Number:
-              <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
-                01837908296
-                <i nz-icon nzType="copy" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
-              </span>
-            </span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="credit-card" class="text-pink-600 mt-1"></i>
-            <span>Send the exact amount as entered above.</span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="info-circle" class="text-pink-600 mt-1"></i>
-            <span>Then paste the Transaction ID and click Confirm.</span>
-          </div>
-        </div>
-
+      <!-- নগদ উত্তোলনের জন্য নির্দেশনা -->
+      <div class="bg-pink-50 border border-pink-200 rounded-lg p-4 mb-4">
+        <p class="text-sm text-pink-900 font-medium mb-2">নগদে উত্তোলনের অনুরোধ করতে:</p>
+        <ul class="list-disc list-inside text-sm text-gray-800 space-y-1">
+          <li>আপনি যে পরিমাণ টাকা উত্তোলন করতে চান, তা লিখুন।</li>
+          <li>আপনার নগদ নম্বরটি সঠিকভাবে প্রদান করুন।</li>
+          <li><span class="font-semibold text-pink-700">সাবমিট</span> বাটনে ক্লিক করুন।</li>
+          <li>আমরা সাথে সাথে আপনার নগদ নম্বরে টাকা পাঠিয়ে দেব।</li>
+        </ul>
+      </div>
        </div>
         <!-- Action Buttons -->
         <div class="flex justify-end gap-3 pt-6">
@@ -81,7 +72,7 @@
         <!-- Input: Amount -->
         <div class="bkash-main">
           <div>
-          <label class="block text-sm font-medium text-pink-800 mb-1">Amount (TK)</label>
+          <label class="block text-sm font-medium text-pink-800">Amount (TK)</label>
           <input nz-input type="number" [(ngModel)]="withdrawAmount"
                  placeholder="Enter amount"
                  class="w-full px-4 py-2 border border-gray-300 rounded-md" />
@@ -89,42 +80,22 @@
 
         <!-- Input: Transaction ID -->
         <div>
-          <label class="block text-sm font-medium text-pink-800 mb-1">bKash Ac No</label>
+          <label class="block text-sm font-medium text-pink-800">bKash Ac No</label>
           <input nz-input [(ngModel)]="txtAccountNo"
                  placeholder="bKash Ac No"
                  class="w-full px-4 py-2 border border-gray-300 rounded-md" />
         </div>
 
         <!-- Instructions -->
-        <div class="text-sm text-gray-700 space-y-3 mt-4">
-          <p class="font-semibold text-pink-800">How to pay with bKash:</p>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="check-circle" class="text-pink-600 mt-1"></i>
-            <span>Use bKash app or dial *247# to Send Money.</span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="user" class="text-pink-600 mt-1"></i>
-            <span>
-              Recipient Number:
-              <span class="text-pink-700 font-bold text-lg flex items-center gap-2">
-                01837908296
-                <i nz-icon nzType="copy" class="cursor-pointer" (click)="copyNumber('01837908296')"></i>
-              </span>
-            </span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="credit-card" class="text-pink-600 mt-1"></i>
-            <span>Send the exact amount shown above.</span>
-          </div>
-
-          <div class="flex items-start gap-2">
-            <i nz-icon nzType="info-circle" class="text-pink-600 mt-1"></i>
-            <span>Then enter your Transaction ID and click Confirm.</span>
-          </div>
-        </div>
+      <div class="bg-pink-50 border border-pink-200 rounded-lg p-4 mb-4">
+        <p class="text-sm text-pink-900 font-medium mb-2">বিকাশ উত্তোলনের অনুরোধ করতে:</p>
+        <ul class="list-disc list-inside text-sm text-gray-800 space-y-1">
+          <li>আপনি যে পরিমাণ টাকা উত্তোলন করতে চান, তা লিখুন।</li>
+          <li>আপনার নগদ নম্বরটি সঠিকভাবে প্রদান করুন।</li>
+          <li><span class="font-semibold text-pink-700">সাবমিট</span> বাটনে ক্লিক করুন।</li>
+          <li>আমরা সাথে সাথে আপনার বিকাশ নম্বরে টাকা পাঠিয়ে দেব।</li>
+        </ul>
+      </div>
 
         </div>
         <!-- Action Buttons -->

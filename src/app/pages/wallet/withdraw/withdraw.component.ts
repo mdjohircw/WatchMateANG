@@ -24,10 +24,14 @@ selectedTabIndex = 0;
 withdrawAmount: number = 0;
 txtAccountNo: string = '';
 isSubmitting = false;
+dataAccessLevel: number = 0;
+  form: any;
+
   constructor(private fb: FormBuilder, private withdrawService: WithdrawService, private message: NzMessageService, private comonService : commonTaskService) {}
 
   ngOnInit(): void {
-
+      this.getCustommer();
+  this.dataAccessLevel = Number(sessionStorage.getItem('__DataAccessLevel__'));
 
 
   }
@@ -45,7 +49,15 @@ submit(): void {
   if (!this.withdrawAmount || !this.txtAccountNo) {
     return;
   }
-  const customerId = Number(sessionStorage.getItem('__customerID__'));
+  const dataAccessLevel = Number(sessionStorage.getItem('__DataAccessLevel__'));
+  let customerId: number;
+
+  if (dataAccessLevel === 1) {
+    customerId = Number(sessionStorage.getItem('__customerID__'));
+  } else {
+    customerId = this.form.get('ddlCustommer')?.value; // Assuming you're using Reactive Forms
+  }
+  
   const userId = Number(sessionStorage.getItem('__useId__'));
     const postData = {
     custommerID: customerId,
