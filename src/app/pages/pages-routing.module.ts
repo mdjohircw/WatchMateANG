@@ -8,6 +8,7 @@ import {
 import { RechargePaymentMethsComponent } from './settings/rechargePaymentMeths/rechargePaymentMeths.component';
 import { RechargeAccountsComponent } from './settings/rechargeAccounts/rechargeAccounts.component';
 import { CompanyComponent } from './settings/company/company.component';
+import { VideoAddComponent } from './settings/video-add/video-add.component';
 
 const routes: Routes = [
 
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path:'recharge-accounts',
     component:RechargeAccountsComponent
+
+  },
+    {
+    path:'add-video',
+    component:VideoAddComponent,
 
   },
 

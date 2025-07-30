@@ -10,6 +10,7 @@ import { IApiResponse } from '../models/interfaces/IApiResponse';
 import Swal from 'sweetalert2';
 import { id } from 'date-fns/locale';
 import { url } from 'inspector';
+import { ICustomerIDName } from '../models/interfaces/ICustomerIDName';
 @Injectable({
     providedIn: 'root'
   })
@@ -27,6 +28,7 @@ export class PackageService {
     private GET_PACKGE_BYE_CUSTOMERID = `api/CustomerPackage/get-customer-package`;
     private GET_VIDEO_BYE_CUSTOMERID = `api/Video/videos`;
     private POST_VIDEO_REWARD = `api/Video/videos/reward?`;
+    private POST_VIDEO = `api/Video/create`;
 
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.userId = sessionStorage.getItem('__useId__');
@@ -88,6 +90,22 @@ export class PackageService {
 
     savePackageRequest(postData: any): Observable<any> {
       const url = `${this.POST_PACKAGE_REQUEST}`; // Use template literal for better readability
+      return this.genericHttpService.create(url, postData).pipe(
+        catchError((error) => {
+          console.error('Error occurred while saving Loan application:', error);
+          const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+             console.log(errorMessage);
+             Swal.fire({
+               icon: 'error',
+               title: 'Submission Failed',
+               text: errorMessage
+             });
+          return throwError(() => new Error('Failed to save Loan application'));
+        })
+      );
+    }
+    saveVideoRequest(postData: any): Observable<any> {
+      const url = `${this.POST_VIDEO}`; // Use template literal for better readability
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
           console.error('Error occurred while saving Loan application:', error);

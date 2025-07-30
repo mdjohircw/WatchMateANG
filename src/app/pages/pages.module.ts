@@ -34,6 +34,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { CompanyComponent } from './settings/company/company.component';
 import { RechargePaymentMethsComponent } from './settings/rechargePaymentMeths/rechargePaymentMeths.component';
 import { RechargeAccountsComponent } from './settings/rechargeAccounts/rechargeAccounts.component';
+import { VideoAddComponent } from './settings/video-add/video-add.component';
 
 
 
@@ -83,6 +84,7 @@ const antdModule = [
         CompanyComponent,
         RechargePaymentMethsComponent,
         RechargeAccountsComponent,
+        VideoAddComponent,
 
     ],
     providers: [

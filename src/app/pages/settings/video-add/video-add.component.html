@@ -1,0 +1,165 @@
+<div nz-row nzGutter="25">
+    <!-- skeleton -->
+    <ng-template #loadingSkeleton>
+      <nz-skeleton class="bg-white dark:bg-white/10 rounded-6 p-[30px] pt-[15px]" [nzShape]="circle" [nzActive]="true"
+        [nzParagraph]="{ rows: 6 }"></nz-skeleton>
+    </ng-template>
+    <!-- skeleton -->
+  
+    <div nz-col nzXs="24" class="mb-[25px]">
+      <ng-container *ngIf="showContent; else loadingSkeleton">
+        <div
+          class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative h-full d-flex">
+          <div
+          class="py-[16px] px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] border-regular dark:border-white/10 border-b d-flex " style="display: flex ;
+              justify-content: space-between;">
+          <h4 class="mb-0 text-lg font-medium text-dark dark:text-white/[.87] d-inline">Add Video</h4>
+          <div class="d-inline">
+
+<!--             <nz-button-group>
+              <a class="text-white  text-[13px] font-semibold bg-primary border-primary px-[8px] capitalize" nz-button routerLink="/plans/loan-plan-list">Plan List</a>
+            </nz-button-group> -->
+          </div>
+
+        </div>
+
+          <div class="p-[25px]">
+            <form class="max-w-full" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item nzGutter="25" class="mb-0">
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Plan Name!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtPlanName"
+                            nzRequired
+                          >
+                            Title 
+                          </nz-form-label>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtTitle" formControlName="txtTitle" Placeholder="Title" />
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Price Amount!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtStartDate"
+                            nzRequired
+                          >
+                          Start Date
+                          </nz-form-label>
+                            <nz-date-picker class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" id="txtStartDate" formControlName="txtStartDate"  placeholder="Select Start Date" ></nz-date-picker> 
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Validaty Days!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtEndDate"
+                            nzRequired
+                          >
+                        End Date 
+                          </nz-form-label>
+                          <nz-input-group>
+                        <nz-date-picker class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" id="txtEndDate" formControlName="txtEndDate"  placeholder="Select End Date" ></nz-date-picker> 
+                          </nz-input-group>
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input  Max Daily Views!">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtperAdReward"
+                            nzRequired
+                          >
+                           Reward Per View
+                          </nz-form-label>
+                          <nz-input-group>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtperAdReward" formControlName="txtperAdReward" Placeholder=" Reward Per View" />
+                          </nz-input-group>
+                        </nz-form-control>
+                      </div>
+                    <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Per Ad Reward">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="ddlPackages"
+                            nzRequired
+                          >
+                           Select Packages 
+                          </nz-form-label>
+                    <nz-select formControlName="ddlPackages" [nzShowSearch]="true" nzPlaceHolder="Select Packages"
+                        class="w-full capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60"
+                        name="ddlPackages"   [nzMode]="'multiple'">
+                        <nz-option *ngFor="let pkg of packageOptions" [nzValue]="pkg.value" [nzLabel]="pkg.label"></nz-option>
+
+                    </nz-select>
+                        </nz-form-control>
+                      </div>
+         
+                      <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control nxMd="8" nzXs="24" class="mb-[10px]" nzErrorTip="The input is not valid Employee Type!">
+                            <nz-form-label class="opacity:0 flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize" nzRequired nzFor="rdlIsActive">Status</nz-form-label>
+                            <nz-radio-group formControlName="rdlIsActive">
+                              <label class="dark:text-white/[.87]" nz-radio  [nzValue]="true">Active</label>
+                              <label class="dark:text-white/[.87]" nz-radio  [nzValue]="false">InActive</label>
+                            </nz-radio-group>
+                            </nz-form-control>
+                            </div>
+                            <div class="px-5 pt-[25px] pb-5 text-center border-b border-regular dark:border-white/10">
+                                <figure class="relative max-w-[250px] mx-auto mb-6">
+                                    <div class="relative">
+                                        <!-- Video Preview -->
+                                        <video *ngIf="videoPreviewUrl" [attr.key]="videoReloadKey" width="250" height="160" controls
+                                            class="rounded-md border border-regular dark:border-white/10">
+                                            <source [src]="videoPreviewUrl" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                            
+                                        <!-- Placeholder when no video selected -->
+                                        <div *ngIf="!videoPreviewUrl"
+                                            class="w-[250px] h-[160px] bg-gray-200 dark:bg-white/10 rounded-md flex items-center justify-center text-gray-500 dark:text-white/60 text-sm">
+                                            No Video Uploaded
+                                        </div>
+                            
+                                        <!-- Upload Button -->
+                                        <span
+                                            class="absolute right-0 flex items-center justify-center w-10 h-10 bg-white rounded-full -bottom-2 dark:bg-white/10">
+                                            <nz-upload nzName="video" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload">
+                                                <span
+                                                    class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-[14px] text-white"
+                                                    nz-icon nzType="camera" nzTheme="outline">
+                                                </span>
+                                            </nz-upload>
+                                        </span>
+                                    </div>
+                                </figure>
+                            
+                                <figcaption>
+                                    <h1 class="mb-0 text-lg font-semibold text-dark dark:text-white/[.87]">
+                                        Upload Ad Video <span class="text-red-500">*</span>
+                                    </h1>
+                                </figcaption>
+                            
+                                <div *ngIf="videoRequiredError" class="text-red-500 text-sm mt-2">
+                                    Please upload a video. Max size: 100MB.
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            </nz-form-item>
+                <nz-form-item nz-row class="register-area" class="mb-0">
+                  <nz-form-control>
+                    <button class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" nz-button nzType="primary">Submit</button>
+                  </nz-form-control>
+
+                </nz-form-item>
+
+
+              </form>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+     
