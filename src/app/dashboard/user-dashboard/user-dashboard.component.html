@@ -75,8 +75,8 @@
   <div nz-col class="bg-white dark:bg-white/10 p-[25px] rounded-10 relative overflow-hidden">
     <div class="flex justify-between">
       <div>
-        <h5>Loan Amount</h5>
-        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">  {{ blanceAmount.loanAmount | currency }}
+        <h5>Your Package </h5>
+        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">  {{ blanceAmount.packagePrice | currency }}
         </h4>
         <div class="flex items-center gap-2 mt-2">
           <span class="flex items-center text-sm text-green-500 font-medium gap-[2px]">
@@ -95,8 +95,8 @@
   <div nz-col class="bg-white dark:bg-white/10 p-[25px] rounded-10 relative overflow-hidden">
     <div class="flex justify-between">
       <div>
-        <h5>Due Amount <small>(Loan + Interest)</small> </h5>
-        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.dueAmount | currency }}
+        <h5>Per Day Income <!-- <small>(Loan + Interest)</small> --> </h5>
+        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.perDayReward | currency }}
         </h4>
         <div class="flex items-center gap-2 mt-2">
           <span class="flex items-center text-sm text-red-500 font-medium gap-[2px]">

@@ -9,6 +9,7 @@ import { IApiResponse } from '../models/interfaces/IApiResponse';
 
 import Swal from 'sweetalert2';
 import { id } from 'date-fns/locale';
+import { url } from 'inspector';
 @Injectable({
     providedIn: 'root'
   })
@@ -16,6 +17,7 @@ export class PackageService {
 
     private userId: string | null;
     private customerId: string | null;
+    private dataAccessLevel: string | null;
     private GET_PACKAGE_REQUEST = `api/Package/packages`;
     private GET_REQUEST_BYE_CUSTOMER = `api/Recharge/requerts-ByeCustomerId`;
     private POST_PACKAGE_REQUEST  = `api/CustomerPackage/create`;
@@ -29,6 +31,7 @@ export class PackageService {
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.userId = sessionStorage.getItem('__useId__');
       this.customerId = sessionStorage.getItem('__customerID__');
+      this.dataAccessLevel = sessionStorage.getItem('__DataAccessLevel__');
 
     }
     getRechargeListById(id:any): Observable<any> {
@@ -64,8 +67,15 @@ export class PackageService {
         })
       );
     }
+    
     getCustomerPackageByCustomerID(): Observable<any> {
-      return this.genericHttpService.getById<any>(`${this.GET_PACKGE_BYE_CUSTOMERID}`,this.customerId).pipe(
+      let url: string;
+      if (this.dataAccessLevel === '1') {
+        url = `${this.GET_PACKGE_BYE_CUSTOMERID}?customerId=${this.customerId}`;
+      } else {
+        url = `${this.GET_PACKGE_BYE_CUSTOMERID}`; // For full data when customerId not required
+      }
+      return this.genericHttpService.getAll<any>(url).pipe(
         map((response: any) => {
           if (response && response.statusCode === 200 && Array.isArray(response.data)) {
             return response;
@@ -75,7 +85,6 @@ export class PackageService {
         })
       );
     }
-
 
     savePackageRequest(postData: any): Observable<any> {
       const url = `${this.POST_PACKAGE_REQUEST}`; // Use template literal for better readability

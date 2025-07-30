@@ -16,7 +16,7 @@ export class DashboardService {
     private companyId: string | null;
     private customerId: string | null;
     private GET_COMPANY_API_CALL_Url: string;
-    private GET_LOAN_BALANCE = `api/Loan/balance`;
+    private GET_LOAN_BALANCE = `api/Dashboard/userAccount/balance`;
     private GET_TRANSCTION_BYE_ID = `api/Transction/transactions`;
     private GET_ADMIN_BALANCE = `api/Dashboard/admin-balance`;
     private GET_RECOVERD_DISBURSED_SUMMARY = `api/Dashboard/repayment-disbursed`;
