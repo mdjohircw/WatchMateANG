@@ -19,9 +19,9 @@ export class LoanPlanService {
     private userId: string | null;
     private GET_LOAN_PLANS = `api/Package/packages`;
     private POST_LOAN_PLANS = `api/Package/create`;
-    private UPDATE_LOAN_PLANS = `api/LoanPlan/update`;
-    private GET_LOAN_PLANS_BYE_ID = `api/LoanPlan/plan`;
-    private DELETE_PLAN_BY_ID = `api/LoanPlan/delete`;
+    private UPDATE_PLANS = `api/Package/update`;
+    private GET_PLANS_BYE_ID = `api/Package/package`;
+    private DELETE_PLAN_BY_ID = `api/Package/delete`;
 
 
     constructor(private genericHttpService: GenericHttpService<any>) {
@@ -31,7 +31,7 @@ export class LoanPlanService {
 
     }
     getLoanPlanById(id:any): Observable<any> {
-      return this.genericHttpService.getById<any>(this.GET_LOAN_PLANS_BYE_ID, id).pipe(
+      return this.genericHttpService.getById<any>(this.GET_PLANS_BYE_ID, id).pipe(
           map((response: any) => {
               if (response) {
                   return response;
@@ -70,8 +70,8 @@ export class LoanPlanService {
       );
     }
 
-    UpdateLoanPlan(postData: any,id : any): Observable<any> {
-      const url = `${this.UPDATE_LOAN_PLANS}/${id}`; // Use template literal for better readability
+    UpdatePlan(postData: any,id : any): Observable<any> {
+      const url = `${this.UPDATE_PLANS}/${id}`; // Use template literal for better readability
       return this.genericHttpService.update(url, postData).pipe(
         catchError((error) => {
           console.error('Error occurred while saving Loan Loan Plan:', error);

@@ -60,7 +60,83 @@
     </div>
   </div>
 </div>
+
 <nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Select Payment Method"
+  (nzOnCancel)="handlesCancel()"
+  [nzFooter]="null"
+  nzClassName="no-padding-modal"
+>
+  <ng-container *nzModalContent>
+    <nz-tabset [(nzSelectedIndex)]="selectedTabIndex">
+<nz-tab *ngFor="let account of paymentAccounts" [nzTitle]="account.bankOrWalletName">
+  <div class="p-4 rounded-lg bg-pink-100 border border-pink-300 flex flex-col gap-4">
+
+    <div class="flex justify-center items-center pb-3 border-b-4" [ngStyle]="{ 'border-color': account.bankOrWalletName.toLowerCase() === 'bkash' ? '#e2136e' : '#e68326' }">
+      <img [src]="account.logo" alt="{{ account.bankOrWalletName }} Logo" class="h-11" />
+    </div>
+
+    <div class="flex justify-between font-bold text-pink-700 text-lg">
+      <span>{{ selectedPackageName }}</span>
+      <span>TK {{ selectedPackageprice }}</span>
+    </div>
+
+    <div [ngClass]="getMainClass(account.bankOrWalletName)">
+      <p class="text-center font-semibold text-lg">ট্রানজেকশন আইডি দিন</p>
+      <input nz-input [(ngModel)]="transactionId" placeholder="ট্রানজেকশন আইডি দিন" class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"/>
+
+      <p class="text-white-800 text-sm leading-6 space-y-3">
+
+        <span class="flex items-start gap-2">
+          <i nz-icon nzType="check" class="mt-1"></i>
+          <span>*247# ডায়াল করে {{ account.bankOrWalletName }} App অথবা মোবাইল থেকে Send Money করুন।</span>
+        </span>
+
+        <span class="flex items-start gap-2">
+          <i nz-icon nzType="check" class="mt-1"></i>
+          <span>
+            প্রাপক নম্বর: 
+            <span class="font-bold text-lg flex items-center gap-2">
+              {{ account.accountNumber }}
+              <i nz-icon nzType="copy" nzTheme="outline" class="cursor-pointer" (click)="copyNumber(account.accountNumber)"></i>
+            </span>
+          </span>
+        </span>
+
+        <span class="flex items-start gap-2">
+          <i nz-icon nzType="check" class="mt-1"></i>
+          <span>টাকার পরিমাণঃ {{ selectedPackageprice }}</span>
+        </span>
+
+        <span class="flex items-start gap-2">
+          <i nz-icon nzType="check" class="mt-1"></i>
+          <span>উপরের বক্সে Transaction ID দিন এবং Confirm ক্লিক করুন।</span>
+        </span>
+
+      </p>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button nz-button class="cancelButton" (click)="handlesCancel()">Cancel</button>
+      <button
+        nz-button
+        [disabled]="isSubmitting"
+        (click)="submit()"
+        [ngClass]="getButtonClass(account.bankOrWalletName)">
+        <span *ngIf="!isSubmitting">Confirm</span>
+        <span *ngIf="isSubmitting"><i nz-icon nzType="loading"></i> Processing...</span>
+      </button>
+    </div>
+
+  </div>
+</nz-tab>
+
+    </nz-tabset>
+  </ng-container>
+</nz-modal>
+
+<!-- <nz-modal
   [(nzVisible)]="isVisible"
   nzTitle="Select Payment Method"
   (nzOnCancel)="handlesCancel()"
@@ -104,7 +180,7 @@
         
             <span class="flex items-start gap-2">
               <i nz-icon nzType="check" class="mt-1 text-pink-700"></i>
-              <span>টাকার পরিমাণঃ 500</span>
+              <span>টাকার পরিমাণঃ {{ selectedPackageprice }}</span>
             </span>
         
             <span class="flex items-start gap-2">
@@ -195,6 +271,6 @@
     </nz-tab>
   </nz-tabset>
   </ng-container>
-</nz-modal>
+</nz-modal> -->
 
 

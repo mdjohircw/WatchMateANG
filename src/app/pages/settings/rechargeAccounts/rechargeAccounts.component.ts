@@ -23,7 +23,6 @@ export class RechargeAccountsComponent {
     this.getRechargeAccounts();
     this.getPaymentMethods();
     this.validateForm = this.fb.group({
-      ddlPaymentMethod: [null, [Validators.required]],
       txtBankName: [null, [Validators.required, Validators.maxLength(100)]],
       txtAccountName: [null,[ Validators.maxLength(100)]],
       txtAccountNumber: [null, [Validators.required]],
@@ -61,7 +60,6 @@ editId: number | null = null;
 submitForm(): void {
   if (this.validateForm.valid) {
     const payload = {
-      recPaymentMethodId: this.validateForm.value.ddlPaymentMethod,
       bankOrWalletName: this.validateForm.value.txtBankName,
       accountName: this.validateForm.value.txtAccountName,
       accountNumber: this.validateForm.value.txtAccountNumber,
@@ -83,7 +81,7 @@ submitForm(): void {
       // Create
       this.settingsService.saveRechargeAccount(payload).subscribe({
         next: (res) => {
-          Swal.fire('Created', 'Recharge account created successfully!', 'success');
+          Swal.fire('Created', 'Payment account created successfully!', 'success');
           this.validateForm.reset();
           this.getRechargeAccounts();
         },
@@ -110,7 +108,6 @@ editRechargeAccount(id: number): void {
       this.editId = id;
 
       this.validateForm.patchValue({
-        ddlPaymentMethod: data.recPaymentMethodId,
         txtBankName: data.bankOrWalletName,
         txtAccountName: data.accountName,
         txtAccountNumber: data.accountNumber,

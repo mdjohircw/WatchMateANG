@@ -33,19 +33,19 @@ export class CustommerProfileComponent {
   }
   customerData: any = null;
 
-  getPersonnelInfo(customerId: any): void {
-    this.Custommer.getCustommerInfo(customerId).subscribe(
-      (customerList) => {
-        if (customerList && customerList.length > 0) {
-          this.customerData = customerList[0]; 
-       
-        }
-      },
-      (error) => {
-        console.error('Error fetching contact info', error);
+getPersonnelInfo(customerId: any): void {
+  this.Custommer.getCustommerInfo(customerId).subscribe(
+    (customer) => {
+      if (customer) {
+        this.customerData = customer; // ✅ no need for [0], it's a single object
       }
-    );
-  }
+    },
+    (error) => {
+      console.error('Error fetching customer info', error);
+    }
+  );
+}
+
 
 
   

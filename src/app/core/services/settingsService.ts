@@ -22,11 +22,11 @@ export class SettingsService {
     private UPDATE_PAYMENT_METHOD = `api/PaymentMethod/update`;
     private DELETE_PAYMENT_METHOD = `api/PaymentMethod/delete`;
     //recharge account start
-    private GET_RECHARGE_ACCOUNTS = `api/RechargeAccount/rechargeAccounts`;
-    private GET_RECHARGE_ACCOUNT_BY_ID = `api/RechargeAccount/rechargeAccount`;
-    private POST_RECHARGE_ACCOUNTS = `api/RechargeAccount/create`;
-    private UPDATE_RECHARGE_ACCOUNTS = `api/RechargeAccount/update`;
-    private DELETE_RECHARGE_ACCOUNTS = `api/RechargeAccount/delete`;
+    private GET_PAYMENT_ACCOUNTS = `api/PaymentAccount/paymentAccounts`;
+    private GET_PAYMENT_ACCOUNT_BY_ID = `api/PaymentAccount/paymentAccount`;
+    private POST_PAYMENT_ACCOUNTS = `api/PaymentAccount/create`;
+    private UPDATE_PAYMENT_ACCOUNTS = `api/PaymentAccount/update`;
+    private DELETE_RPAYMENT_ACCOUNTS = `api/PaymentAccount/delete`;
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.companyId = sessionStorage.getItem('__companyId__');
       this.customerId = sessionStorage.getItem('__customerID__');
@@ -104,7 +104,7 @@ export class SettingsService {
 ///Recharge Account Start
 
     getRechargeAccountList(): Observable<any> {
-        return this.genericHttpService.getAll<any>(`${this.GET_RECHARGE_ACCOUNTS}`).pipe(
+        return this.genericHttpService.getAll<any>(`${this.GET_PAYMENT_ACCOUNTS}`).pipe(
             map((response: any) => {
                 if (response && response.statusCode === 200 && Array.isArray(response.data)) {
                     return response;
@@ -117,7 +117,7 @@ export class SettingsService {
 
 
     getRechargeAccountById(id: number): Observable<any> {
-      return this.genericHttpService.getById<any>(this.GET_RECHARGE_ACCOUNT_BY_ID, id).pipe(
+      return this.genericHttpService.getById<any>(this.GET_PAYMENT_ACCOUNT_BY_ID, id).pipe(
         map((response: any) => {
           if (response && response.statusCode === 200 && response.data) {
             return response;  // Return the response if it's valid
@@ -129,7 +129,7 @@ export class SettingsService {
     }
 
  saveRechargeAccount(postData: any): Observable<any> {
-      const url = `${this.POST_RECHARGE_ACCOUNTS}`;
+      const url = `${this.POST_PAYMENT_ACCOUNTS}`;
       
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
@@ -150,7 +150,7 @@ export class SettingsService {
     }
 
      updateRechargeAccount(postData: any, id :any): Observable<any> {
-      const url = `${this.UPDATE_RECHARGE_ACCOUNTS}/${id}`;
+      const url = `${this.UPDATE_PAYMENT_ACCOUNTS}/${id}`;
       
       return this.genericHttpService.update(url, postData).pipe(
         catchError((error) => {
@@ -171,7 +171,7 @@ export class SettingsService {
     }
 
     DeleteRechargeAccountByeId(id: any): Observable<any> {
-      return this.genericHttpService.genericdelete(`${this.DELETE_RECHARGE_ACCOUNTS}/${id}`);
+      return this.genericHttpService.genericdelete(`${this.DELETE_RPAYMENT_ACCOUNTS}/${id}`);
     }
   
 }

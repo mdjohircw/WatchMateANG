@@ -22,11 +22,11 @@ export class CustommerService {
   private POST_GUARANTOR_INFO_URL = `api/CustommerGuarantor/create`;
   private PUT_PERSONNEL_INFO_URL = `api/Custommer/update`;
   private PostEmployeeShortingUrl = `api/Employee/employee-sorting`;
-  private GET_PERSONNEL_INFO = `api/Custommer/custommer`;
+  private GET_PERSONNEL_INFO = `api/CustomerInfo/customer`;
   private GET_PERSONNEL_DETAILES_BY_ID = `api/Custommer/custommer`;
   private GET_CUSTOMMER_DETAILES = `api/Custommer/custommerDetailes`;
   private GET_ALL_CUSTOMMER = `api/CustomerInfo/customers`;
-  private DELETE_CUSTOMMER_BY_ID = `api/Custommer/delete`;
+  private DELETE_CUSTOMMER_BY_ID = `api/CustomerInfo/delete`;
   private GET_COUNTRY = `api/Custommer/countries`;
  
 
@@ -131,16 +131,17 @@ export class CustommerService {
     );
   }
   
-  getCustommerInfo(id: any): Observable<ICustomerDetailes[] | null> {
-    return this.genericHttpService.getById<IApiResponse<ICustomerDetailes[]>>(this.GET_CUSTOMMER_DETAILES, id).pipe(
-      map((response: IApiResponse<ICustomerDetailes[]>) => {
-        if (response && Array.isArray(response.data) && response.data.length > 0) {
-          return response.data; 
-        }
-        return null; 
-      })
-    );
-  }
+getCustommerInfo(id: any): Observable<any | null> {
+  return this.genericHttpService.getById<IApiResponse<any>>(this.GET_PERSONNEL_INFO, id).pipe(
+    map((response: IApiResponse<any>) => {
+      if (response && response.data) {
+        return response.data; // ✅ single object
+      }
+      return null;
+    })
+  );
+}
+
   getAllCustommerInfo(): Observable<IApiResponse<ICustomerDetailes[]>> {
     return this.genericHttpService.getAll<IApiResponse<ICustomerDetailes[]>>(this.GET_ALL_CUSTOMMER).pipe(
       map(response => {

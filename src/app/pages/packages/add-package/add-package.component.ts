@@ -11,10 +11,16 @@ import Swal from 'sweetalert2';
   styleUrl: './add-package.component.css'
 })
 export class AddPackageComponent implements OnInit{
- isLoading = true;
+  isLoading = true;
   showContent = false;
   pricing: any[] = []; // Store the cards data
-
+  paymentAccounts: any[] = [];
+isVisible = false;
+transactionId = '';
+selectedPackageId: number | null = null;
+selectedPackageprice: number | null = null;
+selectedPackageName: string = '';
+selectedTabIndex: number = 0;
   constructor(private fb: UntypedFormBuilder,private http: HttpClient, private Package: PackageService ,private router: Router) {}
 
   ngOnInit(): void {
@@ -27,7 +33,19 @@ export class AddPackageComponent implements OnInit{
       this.showContent = true;
     }, 500);
   }
+getMainClass(method: string): string {
+  const name = method.toLowerCase();
+  if (name === 'bkash') return 'bkash-main';
+  if (name === 'nagad') return 'nagad-main';
+  return ''; // fallback
+}
 
+getButtonClass(method: string): string {
+  const name = method.toLowerCase();
+  if (name === 'bkash') return 'bkashButton';
+  if (name === 'nagad') return 'nagadButton';
+  return '';
+}
 
 getPackageRequests(): void {
   this.Package.getPackageList().subscribe({
@@ -47,6 +65,7 @@ getPackageRequests(): void {
           ],
           buttonText: 'Buy Now'
         }));
+        this.paymentAccounts = response.paymentAccount;
         this.isLoading = false;
         this.showContent = true;
       }
@@ -66,12 +85,7 @@ getPackageRequests(): void {
     console.log("Edit Customer clicked", planId);
     this.router.navigate([`/plans/update`, planId]);  // Adjusted to match lazy-loaded route
   }
-isVisible = false;
-transactionId = '';
-selectedPackageId: number | null = null;
-selectedPackageprice: number | null = null;
-selectedPackageName: string = '';
-selectedTabIndex: number = 0;
+
 
 /* openModal(): void {
   this.isVisible = true;
@@ -89,14 +103,16 @@ submit(): void {
     return;
   }
 
-if (this.selectedTabIndex === null) {
-  Swal.fire({
-    icon: 'warning',
-    title: 'No Payment Method Selected',
-    text: 'Please select a payment method.'
-  });
-  return;
-}
+  const selectedAccount = this.paymentAccounts[this.selectedTabIndex];
+  if (!selectedAccount) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Payment Method Selected',
+      text: 'Please select a payment method.'
+    });
+    return;
+  }
+
   const customerId = Number(sessionStorage.getItem('__customerID__'));
   const userId = Number(sessionStorage.getItem('__useId__'));
 
@@ -104,12 +120,13 @@ if (this.selectedTabIndex === null) {
     customerId: customerId,
     userId: userId,
     packageId: this.selectedPackageId,
-    status: 1, // Assuming you want to set it active
-    payMethodID: this.selectedTabIndex === 0 ? 1 : 2,
-    transctionCode: this.transactionId || '' // You can set this value from your form input
+    status: 1, // e.g. Active
+    payMethodID: selectedAccount.id, // This is now dynamic
+    transctionCode: this.transactionId || ''
   };
 
   this.isSubmitting = true;
+
   this.Package.savePackageRequest(postData).subscribe({
     next: (response) => {
       Swal.fire({
@@ -118,13 +135,15 @@ if (this.selectedTabIndex === null) {
         text: 'Package request submitted successfully!'
       });
       this.isSubmitting = false;
-      this.isVisible = false; // Close modal after success
+      this.isVisible = false; // Close modal
+      this.transactionId = ''; // Reset form
     },
     error: () => {
       this.isSubmitting = false;
     }
   });
 }
+
 
 
 openModal(packages: any): void {

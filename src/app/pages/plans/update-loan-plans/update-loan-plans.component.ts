@@ -46,16 +46,12 @@ isLoading = true;
     this.isLoading = false;
     this.showContent = true;
     this.validateForm = this.fb.group({
-      txtPlanName: [null, [Validators.required]],
-      txtMaximumAmount: [null, [Validators.required]],
-      txtMinimumAmount: [null, [Validators.required]],
-      txtIntarestRate: [null, [Validators.required]],
-      txtMaxRePaymentMonth : [null, [Validators.required]],
-      txtMinRepaymentMonth : [null, [Validators.required]],
-      txtProcessingFee : [ null, [Validators.required]],
-      txtLateFee : [null , [Validators.required]],
-      txtDiscraption: [null, [Validators.required]],
-      rdlIsActive: [1, Validators.required] 
+      txtPlanName: [null, [Validators.required]],          // Plan Name → packageName
+      txtPriceAmount: [null, [Validators.required]],       // Price → price
+      txtValidatyDay: [null, [Validators.required]],       // Validity Days → validityDays
+      txtmaxDailyViews: [null, [Validators.required]],     // Max Daily Views → maxDailyViews
+      txtperAdReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
+      rdlIsActive: new FormControl(1, [Validators.required]) // isActive (radio)
     });
   }
   
@@ -75,30 +71,25 @@ isLoading = true;
       });
       return;
     }
-  
     const planData = {
-      planName: this.validateForm.value.txtPlanName,
-      minAmount: this.validateForm.value.txtMinimumAmount,
-      maxAmount: this.validateForm.value.txtMaximumAmount,
-      interestRate: this.validateForm.value.txtIntarestRate,
-      minRepaymentPeriod: this.validateForm.value.txtMinRepaymentMonth,
-      maxRepaymentPeriod: this.validateForm.value.txtMaxRePaymentMonth,
-      processingFee: this.validateForm.value.txtProcessingFee,
-      latePaymentPenalty: this.validateForm.value.txtLateFee,
-      descraption: this.validateForm.value.txtDiscraption,
-      isActive: this.validateForm.value.rdlIsActive ? 1 : 0
-    };
-  
+    packageName: this.validateForm.value.txtPlanName,
+    price: +this.validateForm.value.txtPriceAmount,
+    validityDays: +this.validateForm.value.txtValidatyDay,
+    maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
+    perAdReward: +this.validateForm.value.txtperAdReward,
+    status: this.validateForm.value.rdlIsActive === 1 ? 1 : 0,
+    userId: 1 // You can replace this with the current user ID dynamically if needed
+  };
     this.isLoading = true;
     this.router.paramMap.subscribe(params => {
       const planIdParam = params.get('id'); // assuming route is like /loan-plan/:id
       const planID = planIdParam ? +planIdParam : null;
   
       if (planID) {
-        this.LoanpPlan.UpdateLoanPlan(planData,planID).subscribe({
+        this.LoanpPlan.UpdatePlan(planData,planID).subscribe({
           next: (response) => {
             this.isLoading = false;
-            Swal.fire('Success', 'Loan plan Update successfully!', 'success');
+            Swal.fire('Success', 'plan Update successfully!', 'success');
             this.validateForm.reset();
             this.route.navigate(['/plans/loan-plan-list']);
           },
@@ -135,20 +126,17 @@ isLoading = true;
     );
   }
   
-  populateLoanPlanForm(data: any): void {
-    this.validateForm.patchValue({
-      txtPlanName: data.planName,
-      txtMinimumAmount: data.minAmount,
-      txtMaximumAmount: data.maxAmount,
-      txtIntarestRate: data.interestRate,
-      txtMinRepaymentMonth: data.minRepaymentPeriod,
-      txtMaxRePaymentMonth: data.maxRepaymentPeriod,
-      txtProcessingFee: data.processingFee,
-      txtLateFee: data.latePaymentPenalty,
-      txtDiscraption: data.descraption,
-      rdlIsActive: data.isActive 
-    });
-  }
+    populateLoanPlanForm(data: any): void {
+      this.validateForm.patchValue({
+        txtPlanName: data.packageName,          // packageName → txtPlanName
+        txtPriceAmount: data.price,             // price → txtPriceAmount
+        txtValidatyDay: data.validityDays,      // validityDays → txtValidatyDay
+        txtmaxDailyViews: data.maxDailyViews,   // maxDailyViews → txtmaxDailyViews
+        txtperAdReward: data.perAdReward,       // perAdReward → txtperAdReward
+        rdlIsActive: data.status                // status → rdlIsActive (1 = active)
+      });
+    }
+
   
   
 
