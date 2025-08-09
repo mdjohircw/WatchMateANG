@@ -6,12 +6,13 @@ import { PackageService } from 'src/app/core/services/package.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-package-list',
-  standalone: false,
-  templateUrl: './package-list.component.html',
-  styleUrl: './package-list.component.css'
+  selector: 'app-packages-by-customer',
+  standalone: true,
+  imports: [],
+  templateUrl: './packages-by-customer.component.html',
+  styleUrl: './packages-by-customer.component.css'
 })
-export class PackageListComponent {
+export class PackagesByCustomerComponent {
   isLoading = true;
   showContent = true;
   value = '';
@@ -27,7 +28,6 @@ export class PackageListComponent {
     this.getPackageRequests();
   }
 
-  
     loadData() {
       setTimeout(() => {
         this.isLoading = false;
@@ -108,58 +108,11 @@ export class PackageListComponent {
     });
   }
 
-      
-      
-      
-/*      onWithdrawRejectClick( rechargeID: number): void {
-        Swal.fire({
-          html: `
-            <div style="text-align: left;">
-                <div style="display: flex; align-items: center;">
-                <label for="txtRemarks" style="width: 120px; font-weight: 600;">Remarks</label>
-                <input id="txtRemarks" type="text" class="swal2-input" style="flex: 1;" placeholder="Enter Remarks">
-              </div>
-            </div>
-          `,
-          focusConfirm: false,
-          preConfirm: () => {
-            const remarks = (document.getElementById('txtRemarks') as HTMLInputElement)?.value;
-      
-            if (!remarks) {
-              Swal.showValidationMessage('Please fill in Remarks!');
-              return;
-            }
-      
-            return { remarks };
-          },
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.isConfirmed && result.value) {
-            const formData = {
-              withdrawaID: rechargeID,
-              remarks: result.value.remarks
-            };
-      
-            console.log('Submitting form data:', formData);
-      
-            this.withdrawService.rejectWithdrawApplication(formData).subscribe({
-              next: (response) => {
-                console.log('Withdrawal approved successfully:', response);
-                this.getWithdrawRequests(); // Refresh table
-              },
-              error: (error) => {
-                console.error('Error approving withdrawal:', error);
-              }
-            });
-          }
-        });
-      } */
-      
 
   deletecustommer(customerId: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'Do you really want to delete this plan?',
+      text: 'Do you really want to delete this?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -172,7 +125,7 @@ export class PackageListComponent {
             if (response?.statusCode === 200) {
               Swal.fire({
                 title: 'Deleted!',
-                text: 'Paln deleted successfully.',
+                text: 'Requested Package deleted successfully.',
                 icon: 'success',
                 confirmButtonText: 'OK',
               }).then(() => {
@@ -210,5 +163,4 @@ export class PackageListComponent {
   }
   
       
-
 }

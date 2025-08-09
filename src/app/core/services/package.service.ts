@@ -29,6 +29,8 @@ export class PackageService {
     private GET_VIDEO_BYE_CUSTOMERID = `api/Video/videos`;
     private POST_VIDEO_REWARD = `api/Video/videos/reward?`;
     private POST_VIDEO = `api/Video/create`;
+    private PUT_PACKAGE_APPROVE = `api/CustomerPackage/package/approve`;
+    private DELETE_PACKAGE = `api/CustomerPackage/delete`;
 
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.userId = sessionStorage.getItem('__useId__');
@@ -37,6 +39,17 @@ export class PackageService {
 
     }
     getRechargeListById(id:any): Observable<any> {
+      return this.genericHttpService.getById<any>(this.GET_RECHARGE_BYE_ID, id).pipe(
+          map((response: any) => {
+              if (response) {
+                  return response;
+              } else {
+                  return { statusCode: 500, message: 'Invalid response', data: [] };
+              }
+          })
+      );
+  }
+  DeleteCustomerPackagesListById(id:any): Observable<any> {
       return this.genericHttpService.getById<any>(this.GET_RECHARGE_BYE_ID, id).pipe(
           map((response: any) => {
               if (response) {
@@ -87,6 +100,25 @@ export class PackageService {
         })
       );
     }
+
+
+  approvePackageApplication(postData: any): Observable<any> {
+    const url = `${this.PUT_PACKAGE_APPROVE}/${postData.CustomerPackageId}?Status=${postData.Status}&userId=${this.userId}`;
+    return this.genericHttpService.updateOrdering(url).pipe(
+      catchError((error) => {
+        console.error('Error occurred while saving leave application:', error);
+
+        const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+        console.log(errorMessage);
+        Swal.fire({
+          icon: 'error',
+          title: 'Approve Failed',
+          text: errorMessage
+        });
+        return throwError(() => new Error('Failed to save recharge request application'));
+      })
+    );
+  }
 
     savePackageRequest(postData: any): Observable<any> {
       const url = `${this.POST_PACKAGE_REQUEST}`; // Use template literal for better readability

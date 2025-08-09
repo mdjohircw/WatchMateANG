@@ -76,27 +76,27 @@
                         </span>
                       </td>
 
-                      <td class="px-5 py-4">
-                      <a nz-dropdown [nzDropdownMenu]="menu" class="cursor-pointer inline-flex items-center"
-                        style="background-color: #f6f6f6; padding: 3px ; color:gray; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
-                        <i class="uil uil-bars text-[20px]"></i>
-                        <i class="uil uil-angle-down text-[20px]"></i>
-                        <nz-icon nzType="down" class="ml-1 text-[12px]"></nz-icon>
-                      </a>
-                    
-                      <nz-dropdown-menu #menu="nzDropdownMenu">
-                        <ul nz-menu>
-                          <li nz-menu-item (click)="onPackageApproveClick(data.id,1)" class=" bg-success text-white "
-                            style="padding: 5px;">Approve</li>
-                          <li nz-menu-item (click)="onPackageApproveClick(data.id,2)" class="bg-danger text-white"
-                            style="padding: 5px; ">Reject</li>
-                           <li nz-menu-item (click)="openWithdrawDetails(data.id)" class="bg-info text-white"
-                            style="padding: 5px; ">Statement</li>
-                          <li nz-menu-item (click)="OnEditClick(data.id )" class="bg-primary text-white" style="padding: 5px;">Edit
-                          </li>
-                          <!--  <li nz-menu-item (click)="openTramsandCondition(data.loanId)">Aggrement Letter</li> -->
-                        </ul>
-                      </nz-dropdown-menu>
+                        <td class="px-5 py-4">
+                      
+<!--                         <button
+                          nz-button
+                          nzType="default"
+                          nzShape="circle"
+                          class="btn-edit"
+                          (click)="editRechargeAccount(data.id)"
+                        >
+                          <i nz-icon nzType="edit"></i>
+                        </button> -->
+                      
+                        <button
+                          nz-button
+                          nzType="default"
+                          nzShape="circle"
+                          class="btn-delete"
+                          (click)="deletecustommer(data.id)"
+                        >
+                          <i nz-icon nzType="delete"></i>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
