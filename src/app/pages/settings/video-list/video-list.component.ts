@@ -3,16 +3,17 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PackageService } from 'src/app/core/services/package.service';
+import { SettingsService } from 'src/app/core/services/settingsService';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-packages-by-customer',
+  selector: 'app-video-list',
   standalone: false,
-  templateUrl: './packages-by-customer.component.html',
-  styleUrl: './packages-by-customer.component.css'
+  templateUrl: './video-list.component.html',
+  styleUrl: './video-list.component.css'
 })
-export class PackagesByCustomerComponent {
-  isLoading = true;
+export class VideoListComponent {
+isLoading = true;
   showContent = true;
   value = '';
   statusFilter = 'All'; 
@@ -21,7 +22,7 @@ export class PackagesByCustomerComponent {
  
   allDatas: any[] = []; 
   datas: any[] = []; 
-  constructor(private fb: UntypedFormBuilder,private http: HttpClient, private Package: PackageService ,private router: Router) {}
+  constructor(private fb: UntypedFormBuilder,private http: HttpClient, private Package: PackageService ,private router: Router,private settingsService : SettingsService) {}
 
   ngOnInit(): void {
     this.getPackageRequests();
@@ -35,7 +36,7 @@ export class PackagesByCustomerComponent {
     }
 
     getPackageRequests(): void {
-      this.Package.getCustomerPackageByCustomerID().subscribe({
+      this.settingsService.getVideoList().subscribe({
         next: (response) => {
           if (response.statusCode === 200) {
             this.allDatas = response.data;
@@ -119,12 +120,12 @@ export class PackagesByCustomerComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.Package.getRechargeListById(customerId).subscribe({
+        this.settingsService.DeleteVideo(customerId).subscribe({
           next: (response: any) => {
             if (response?.statusCode === 200) {
               Swal.fire({
                 title: 'Deleted!',
-                text: 'Requested Package deleted successfully.',
+                text: 'Video deleted successfully.',
                 icon: 'success',
                 confirmButtonText: 'OK',
               }).then(() => {
@@ -160,6 +161,4 @@ export class PackagesByCustomerComponent {
       }
     });
   }
-  
-      
 }

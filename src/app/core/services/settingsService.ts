@@ -27,6 +27,8 @@ export class SettingsService {
     private POST_PAYMENT_ACCOUNTS = `api/PaymentAccount/create`;
     private UPDATE_PAYMENT_ACCOUNTS = `api/PaymentAccount/update`;
     private DELETE_RPAYMENT_ACCOUNTS = `api/PaymentAccount/delete`;
+    private GET_VIDEO_LIST = `api/Video/videos`;
+    private DELETE_VIDEOS = `api/Video/delete`;
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.companyId = sessionStorage.getItem('__companyId__');
       this.customerId = sessionStorage.getItem('__customerID__');
@@ -115,6 +117,19 @@ export class SettingsService {
         );
     }
 
+    getVideoList(): Observable<any> {
+        return this.genericHttpService.getAll<any>(`${this.GET_VIDEO_LIST}`).pipe(
+            map((response: any) => {
+                if (response && response.statusCode === 200 && Array.isArray(response.data)) {
+                    return response;
+                } else {
+                    return { statusCode: 500, message: 'Invalid response', data: [] };
+                }
+            })
+        );
+    }
+
+
 
     getRechargeAccountById(id: number): Observable<any> {
       return this.genericHttpService.getById<any>(this.GET_PAYMENT_ACCOUNT_BY_ID, id).pipe(
@@ -127,7 +142,17 @@ export class SettingsService {
         })
       );
     }
-
+    DeleteVideo(id:any): Observable<any> {
+      return this.genericHttpService.delete(this.DELETE_VIDEOS, id).pipe(
+          map((response: any) => {
+              if (response) {
+                  return response;
+              } else {
+                  return { statusCode: 500, message: 'Invalid response', data: [] };
+              }
+          })
+      );
+  }
  saveRechargeAccount(postData: any): Observable<any> {
       const url = `${this.POST_PAYMENT_ACCOUNTS}`;
       

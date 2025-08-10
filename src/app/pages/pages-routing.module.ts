@@ -9,6 +9,7 @@ import { RechargePaymentMethsComponent } from './settings/rechargePaymentMeths/r
 import { RechargeAccountsComponent } from './settings/rechargeAccounts/rechargeAccounts.component';
 import { CompanyComponent } from './settings/company/company.component';
 import { VideoAddComponent } from './settings/video-add/video-add.component';
+import { VideoListComponent } from './settings/video-list/video-list.component';
 
 const routes: Routes = [
 
@@ -34,7 +35,11 @@ const routes: Routes = [
     component:VideoAddComponent,
 
   },
+   {
+    path:'video-list',
+    component:VideoListComponent,
 
+  },
 ];
 
 @NgModule({

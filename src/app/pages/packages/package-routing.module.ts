@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { PackageListComponent } from './package-list/package-list.component';
 import { AddPackageComponent } from './add-package/add-package.component';
+import { PackagesByCustomerComponent } from './packages-by-customer/packages-by-customer.component';
 const routes: Routes = [
   {
     path: 'package-list',
@@ -23,7 +24,13 @@ const routes: Routes = [
     }
   },
 
-
+    {
+    path: 'cutomer-package-list',
+    component: PackagesByCustomerComponent,
+    data: {
+      title: 'My Packages',
+    }
+  },
   /*
   {
     path: 'approve/:id',  // Route for editing an existing customer

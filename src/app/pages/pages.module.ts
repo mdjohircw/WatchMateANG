@@ -35,7 +35,7 @@ import { CompanyComponent } from './settings/company/company.component';
 import { RechargePaymentMethsComponent } from './settings/rechargePaymentMeths/rechargePaymentMeths.component';
 import { RechargeAccountsComponent } from './settings/rechargeAccounts/rechargeAccounts.component';
 import { VideoAddComponent } from './settings/video-add/video-add.component';
-
+import { VideoListComponent } from './settings/video-list/video-list.component';
 
 
 
@@ -85,7 +85,7 @@ const antdModule = [
         RechargePaymentMethsComponent,
         RechargeAccountsComponent,
         VideoAddComponent,
-
+        VideoListComponent
     ],
     providers: [
       DatePipe
