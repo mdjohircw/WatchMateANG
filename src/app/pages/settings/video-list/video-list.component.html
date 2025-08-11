@@ -38,7 +38,7 @@
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Start Date</th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">End Date</th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Package</th>
-                      <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Reward Per View </th>
+                      <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Per View </th>
                        <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Created At </th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden rounded-e-[10px] capitalize ">Status</th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start">Action</th>
@@ -50,18 +50,22 @@
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ i + 1 }}</td>
                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">
                         <div class="flex items-center space-x-2">
-                          <img [src]="data.videoUrl" class="w-10 h-10 rounded-full" alt="Custommer Picture">
+                         <!--  <img [src]="data.videoUrl" class="w-10 h-10 rounded-full" alt="Custommer Picture"> -->
                           <div>
-                            <span class="block font-medium">{{ data.title }}</span>
+                            <span class="block font-medium"><a [href]="data.videoUrl" target="_blank" rel="noopener noreferrer"
+                                class="block font-medium text-blue-600 hover:underline">
+                                {{ data.title }}
+                              </a>
+                            </span>
                             <span class="text-gray-500 text-sm">{{ data.custCardNo }}</span>
                           </div>
                         </div>
                       </td>
-                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.startDate }}</td>
-                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.endDate }}</td>
-                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.packageIds }}</td>
+                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.startDate | date }}</td>
+                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.endDate |date}}</td>
+                      <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{data.packageNames }}</td>
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ data.rewardPerView }}</td>
-                        <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ data.createdAt  }}</td>
+                        <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ data.createdAt |date  }}</td>
                       <td class="px-[20px] py-4 text-dark text-[15px]">
                         <span
                           class="inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-medium rounded-[15px] capitalize"
