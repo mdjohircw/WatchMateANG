@@ -4,10 +4,10 @@ import { LeaveService } from 'src/app/core/services/leave.service';
 import { ILoanApplication } from 'src/app/core/models/interfaces/ILoanApplication';
 import { IApiResponse } from 'src/app/core/models/interfaces/IApiResponse';
 import Swal from 'sweetalert2';
-import { LoanService } from 'src/app/core/services/LoanService';
 import { ILeaveData } from 'src/app/core/models/interfaces/ILeave-data';
 import { Router } from '@angular/router';
 import { ILoanInstalmentDetails } from 'src/app/core/models/interfaces/ILoanInstalmentDetails';
+import { PackageService } from 'src/app/core/services/package.service';
 import { DateTimeFormat } from 'intl';
 @Component({
   selector: 'upcoming-loan-instalment',
@@ -28,7 +28,7 @@ isLoading = true;
 
    listOfCurrentPageData: readonly ILoanInstalmentDetails[] = [];
   filterDate: string = '';
-  constructor(private router: Router , private loanService: LoanService) {}
+  constructor(private router: Router , private PackageService: PackageService,) {}
 
   ngOnInit(): void {
     // this.loadData();
@@ -50,52 +50,49 @@ isLoading = true;
     }, 500);
   }
  */
-  getLoanInstalments(date: any): void {
-    this.isLoading = true;
-    this.showContent = false; // Hide content during loading
-  
-    setTimeout(() => {
-      this.loanService.getLaonInstalmentsByMonth(date).subscribe(
-        (response: IApiResponse<ILoanInstalmentDetails[]>) => {
-          this.isLoading = false;
-          this.showContent = true;
-  
-          if (response.statusCode === 200) {
-            this.allDatas = response.data || [];
-          } else {
-            this.allDatas = [];
-            console.error('Error fetching loan instalments by month:', response.message);
-          }
-        },
-        error => {
-          this.isLoading = false;
-          this.showContent = true;
-          this.allDatas = [];
-          console.error('API Error:', error);
-        }
-      );
-    }, 5); // Optional: small delay to simulate loading
-  }
-  
-  
-    onCurrentPageDataChange(listOfCurrentPageData: readonly ILoanInstalmentDetails[]): void {
-      this.listOfCurrentPageData = listOfCurrentPageData;
-      }
-  
-  filterByAnyMetchingData() {
-    const searchTerm = this.searchAny.toLowerCase().trim();
-    
-    if (!searchTerm) {
-      this.datas = [...this.allDatas]; // Reset if search is empty
-      return;
-    }
+getLoanInstalments(date: any): void {
+  this.isLoading = true;
+  this.showContent = false; // Hide content during loading
 
-    this.datas = this.allDatas.filter(leave =>
-      Object.values(leave).some(value =>
-        value?.toString().toLowerCase().includes(searchTerm)
-      )
-    );
+  setTimeout(() => {
+    this.PackageService.getCustomerPackageByCustomerID().subscribe({
+      next: (response) => {
+        if (response.statusCode === 200) {
+          this.allDatas = response.data;
+          this.isLoading = false;
+          this.showContent = true;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load recharge data:', err);
+        this.allDatas = [];
+        this.datas = [];
+        this.isLoading = false;
+        this.showContent = true;
+      }
+    });
+  }, 500); // Optional: small delay to simulate loading
+}
+
+// ✅ Now separate methods properly outside of getLoanInstalments
+onCurrentPageDataChange(listOfCurrentPageData: readonly ILoanInstalmentDetails[]): void {
+  this.listOfCurrentPageData = listOfCurrentPageData;
+}
+
+filterByAnyMetchingData(): void {
+  const searchTerm = this.searchAny.toLowerCase().trim();
+
+  if (!searchTerm) {
+    this.datas = [...this.allDatas]; // Reset if search is empty
+    return;
   }
+
+  this.datas = this.allDatas.filter(leave =>
+    Object.values(leave).some(value =>
+      value?.toString().toLowerCase().includes(searchTerm)
+    )
+  );
+}
 
 /*   filterByStatus() {
     if (this.statusFilter === 'All') {

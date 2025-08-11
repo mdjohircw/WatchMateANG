@@ -62,7 +62,7 @@ submit(): void {
     const postData = {
     custommerID: customerId,
     userId: userId,
-    paymentMethodID: this.selectedTabIndex === 0 ? 1 : 2,
+    paymentMethodID: this.selectedTabIndex === 0 ? 2 : 3,
     amount: this.withdrawAmount,
     accountNumber: this.txtAccountNo,
   };

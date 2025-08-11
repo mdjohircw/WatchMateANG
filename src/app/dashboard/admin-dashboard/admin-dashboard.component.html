@@ -42,7 +42,7 @@
           </div>
           <div>
             <h4 class="mb-0 text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.totalCustomers }}</h4>
-            <span class="font-normal text-body dark:text-white/60 text-15">Total Borrower</span>
+            <span class="font-normal text-body dark:text-white/60 text-15">Total Users</span>
           </div>
         </div>
         <div class="mt-3">
@@ -64,8 +64,8 @@
             <svg-icon class="w-[30px] h-[30px]" src="assets/images/svg/unicons-line/coins.svg"></svg-icon>
           </div>
           <div>
-            <h4 class="mb-0 text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.totalActiveLoan  }}</h4>
-            <span class="font-normal text-body dark:text-white/60 text-15">Active Loans</span>
+            <h4 class="mb-0 text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.totalActivePackage  }}</h4>
+            <span class="font-normal text-body dark:text-white/60 text-15">Active Packages</span>
           </div>
         </div>
         <div class="mt-3">
@@ -74,7 +74,7 @@
               <svg-icon class="w-[16px] h-[16px]" src="assets/images/svg/feather/trending-up.svg"></svg-icon>
    
             </span>
-            <span class="text-sm text-light dark:text-white/60 ml-2">Overall Active Loan</span>
+            <span class="text-sm text-light dark:text-white/60 ml-2">Overall Active Package</span>
           </span>
         </div>
       </div>
@@ -89,7 +89,7 @@
           </div>
           <div>
             <h4 class="mb-0 text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.disbursementAmount |  currency }}</h4>
-            <span class="font-normal text-body dark:text-white/60 text-15">Total Disbursed Amount</span>
+            <span class="font-normal text-body dark:text-white/60 text-15">Total Withdraw Amount</span>
           </div>
         </div>
         <div class="mt-3">
@@ -161,14 +161,14 @@
   <!-- end: sales Growth -->
 
   <!-- Top Selling -->
-  <div nz-col nzXs="24" nzXXl="12" class="mb-[25px]">
+<!--   <div nz-col nzXs="24" nzXXl="12" class="mb-[25px]">
     <ng-container *ngIf="showContent; else loadingSkeleton">
       <nz-topSelling [componentId]="'component3'"></nz-topSelling>
     </ng-container>
-  </div>
+  </div> -->
 
   <!-- Top Selling -->
-  <div nz-col nzXs="24" nzXXl="12" class="mb-[25px]">
+  <div nz-col nzXs="24" nzXXl="24" class="mb-[25px]">
     <ng-container *ngIf="showContent; else loadingSkeleton">
       <nz-browserStates></nz-browserStates>
     </ng-container>

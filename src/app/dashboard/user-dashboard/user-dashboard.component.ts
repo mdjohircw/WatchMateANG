@@ -5,7 +5,7 @@ import { ILoanInstalmentDetails } from 'src/app/core/models/interfaces/ILoanInst
 import { ITransctioDetailes } from 'src/app/core/models/interfaces/ITransctioDetailes';
 import { DashboardService } from 'src/app/core/services/dashboardService';
 import { LoanService } from 'src/app/core/services/LoanService';
-
+import { WithdrawService } from 'src/app/core/services/withdraw.service';
 @Component({
     templateUrl: './user-dashboard.component.html'
 })
@@ -23,7 +23,7 @@ export class UserDashboardComponent {
   allTransactions  : ITransctioDetailes [] =[];
   filteredTransactions   : ITransctioDetailes [] =[];
 
-  constructor(private dashboardService: DashboardService, private route: ActivatedRoute, private loanService: LoanService) {}
+  constructor(private dashboardService: DashboardService, private route: ActivatedRoute, private loanService: LoanService, private Withdraw: WithdrawService) {}
 
   ngOnInit() {
 
@@ -113,7 +113,7 @@ export class UserDashboardComponent {
     this.isLoading = true;
     this.showContent = false; // Hide content during loading
     setTimeout(() => {
-      this.loanService.getLaonInstalments(loanid).subscribe(
+      this.Withdraw.getWithdrawListByeCustomer().subscribe(
         (response: IApiResponse<ILoanInstalmentDetails[]>) => {
           this.isLoading = false;
           this.showContent = true;
@@ -134,7 +134,9 @@ export class UserDashboardComponent {
           console.error('API Error:', error);
         }
       );
-    }); // ⏱ Adjust delay here if needed
+    }); 
+
+    
   }
 
   fromDate: string = ''; // Bound to the input

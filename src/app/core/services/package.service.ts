@@ -30,7 +30,7 @@ export class PackageService {
     private POST_VIDEO_REWARD = `api/Video/videos/reward?`;
     private POST_VIDEO = `api/Video/create`;
     private PUT_PACKAGE_APPROVE = `api/CustomerPackage/package/approve`;
-    private DELETE_PACKAGE = `api/CustomerPackage/delete`;
+    private DELETE_CUSTOMER_PACKAGE = `api/CustomerPackage/delete`;
 
     constructor(private genericHttpService: GenericHttpService<any>) { 
       this.userId = sessionStorage.getItem('__useId__');
@@ -50,7 +50,7 @@ export class PackageService {
       );
   }
   DeleteCustomerPackagesListById(id:any): Observable<any> {
-      return this.genericHttpService.getById<any>(this.GET_RECHARGE_BYE_ID, id).pipe(
+      return this.genericHttpService.delete(this.DELETE_CUSTOMER_PACKAGE, id).pipe(
           map((response: any) => {
               if (response) {
                   return response;

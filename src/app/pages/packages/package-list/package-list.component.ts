@@ -57,14 +57,12 @@ export class PackageListComponent {
 
     editcustommer(planId: any) {
       console.log("Edit Customer clicked", planId);
-      this.router.navigate([`/plans/update`, planId]);  // Adjusted to match lazy-loaded route
+      this.router.navigate([`/plans/update`, planId]);  
     }
   
   
       edit(ApplicationID: any) {
-        console.log("Edit Leave clicked", ApplicationID);
-        // Open a modal or navigate to the edit leave page with leave details
-    
+        console.log("Edit Leave clicked", ApplicationID);    
         this.router.navigate([`/loan/approve`, ApplicationID]); 
       }
     
@@ -98,7 +96,7 @@ export class PackageListComponent {
         this.Package.approvePackageApplication(formData).subscribe({
           next: (response) => {
             console.log('Request processed successfully:', response);
-            this.getPackageRequests(); // Refresh table
+            this.getPackageRequests(); 
           },
           error: (error) => {
             console.error('Error processing request:', error);
@@ -107,54 +105,6 @@ export class PackageListComponent {
       }
     });
   }
-
-      
-      
-      
-/*      onWithdrawRejectClick( rechargeID: number): void {
-        Swal.fire({
-          html: `
-            <div style="text-align: left;">
-                <div style="display: flex; align-items: center;">
-                <label for="txtRemarks" style="width: 120px; font-weight: 600;">Remarks</label>
-                <input id="txtRemarks" type="text" class="swal2-input" style="flex: 1;" placeholder="Enter Remarks">
-              </div>
-            </div>
-          `,
-          focusConfirm: false,
-          preConfirm: () => {
-            const remarks = (document.getElementById('txtRemarks') as HTMLInputElement)?.value;
-      
-            if (!remarks) {
-              Swal.showValidationMessage('Please fill in Remarks!');
-              return;
-            }
-      
-            return { remarks };
-          },
-          showCancelButton: true,
-        }).then((result) => {
-          if (result.isConfirmed && result.value) {
-            const formData = {
-              withdrawaID: rechargeID,
-              remarks: result.value.remarks
-            };
-      
-            console.log('Submitting form data:', formData);
-      
-            this.withdrawService.rejectWithdrawApplication(formData).subscribe({
-              next: (response) => {
-                console.log('Withdrawal approved successfully:', response);
-                this.getWithdrawRequests(); // Refresh table
-              },
-              error: (error) => {
-                console.error('Error approving withdrawal:', error);
-              }
-            });
-          }
-        });
-      } */
-      
 
   deletecustommer(customerId: number) {
     Swal.fire({
@@ -167,7 +117,7 @@ export class PackageListComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.Package.getRechargeListById(customerId).subscribe({
+        this.Package.DeleteCustomerPackagesListById(customerId).subscribe({
           next: (response: any) => {
             if (response?.statusCode === 200) {
               Swal.fire({
@@ -176,7 +126,7 @@ export class PackageListComponent {
                 icon: 'success',
                 confirmButtonText: 'OK',
               }).then(() => {
-                this.ngOnInit(); // Refresh your customer list or data view
+                this.ngOnInit(); 
               });
             } else {
               Swal.fire({
