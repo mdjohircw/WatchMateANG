@@ -25,14 +25,16 @@ withdrawAmount: number = 0;
 txtAccountNo: string = '';
 isSubmitting = false;
 dataAccessLevel: number = 0;
-  form: any;
+  form!: FormGroup; 
 
   constructor(private fb: FormBuilder, private withdrawService: WithdrawService, private message: NzMessageService, private comonService : commonTaskService) {}
 
   ngOnInit(): void {
       this.getCustommer();
   this.dataAccessLevel = Number(sessionStorage.getItem('__DataAccessLevel__'));
-
+    this.form = this.fb.group({
+      ddlCustommer: [null, Validators.required]
+    });
 
   }
 copyNumber(number: string): void {
@@ -55,7 +57,7 @@ submit(): void {
   if (dataAccessLevel === 1) {
     customerId = Number(sessionStorage.getItem('__customerID__'));
   } else {
-    customerId = this.form.get('ddlCustommer')?.value; // Assuming you're using Reactive Forms
+      customerId = this.form.get('ddlCustommer')?.value;
   }
   
   const userId = Number(sessionStorage.getItem('__useId__'));
