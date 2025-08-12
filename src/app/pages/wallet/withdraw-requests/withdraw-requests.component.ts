@@ -230,7 +230,12 @@ handleCancel(): void {
   
         this.withdrawService.rejectWithdrawApplication(formData).subscribe({
           next: (response) => {
-            console.log('Withdrawal approved successfully:', response);
+            console.log('withdraw Rejectd!', response);
+             Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'withdraw Rejectd!'
+                  });
             this.getWithdrawRequests(); // Refresh table
           },
           error: (error) => {

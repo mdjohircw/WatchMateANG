@@ -26,6 +26,7 @@ txtAccountNo: string = '';
 isSubmitting = false;
 dataAccessLevel: number = 0;
   form!: FormGroup; 
+selectedCustomerId: number | null = null;
 
   constructor(private fb: FormBuilder, private withdrawService: WithdrawService, private message: NzMessageService, private comonService : commonTaskService) {}
 
@@ -57,7 +58,7 @@ submit(): void {
   if (dataAccessLevel === 1) {
     customerId = Number(sessionStorage.getItem('__customerID__'));
   } else {
-      customerId = this.form.get('ddlCustommer')?.value;
+      customerId = this.selectedCustomerId;
   }
   
   const userId = Number(sessionStorage.getItem('__useId__'));
@@ -83,7 +84,6 @@ submit(): void {
     }
   });
 }
-
 
 
 

@@ -104,7 +104,48 @@
                               <label class="dark:text-white/[.87]" nz-radio  [nzValue]="false">InActive</label>
                             </nz-radio-group>
                             </nz-form-control>
+                        </div>
+                        <!-- Is YouTube Video Switch -->
+                        <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                          <nz-form-control class="mb-[10px]">
+                            <nz-form-label
+                              class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                              nzFor="isYouTube">
+                              Is YouTube Video
+                            </nz-form-label>
+
+                            <nz-switch
+                              formControlName="isYouTube"
+                              [nzCheckedChildren]="'Yes'"
+                              [nzUnCheckedChildren]="'No'">
+                            </nz-switch>
+                          </nz-form-control>
+                        </div>
+
+                        <!-- Show YouTube link input if switch is ON -->
+                        <div nz-col nzMd="12" nzSm="24" nzXs="24" *ngIf="validateForm.get('isYouTube')?.value">
+                          <nz-form-control class="mb-[10px]" nzErrorTip="Please provide a valid YouTube link!">
+                            <nz-form-label
+                              class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                              nzRequired
+                              nzFor="youtubeLink">
+                              YouTube Video Link
+                            </nz-form-label>
+
+                            <div class="flex gap-2">
+                              <input
+                                class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
+                                nz-input
+                                id="youtubeLink"
+                                formControlName="youtubeLink"
+                                placeholder="Enter YouTube video URL" />
+
+                              <!-- Optional button to preview -->
+                 
                             </div>
+                          </nz-form-control>
+                        </div>
+
                             <div class="px-5 pt-[25px] pb-5 text-center border-b border-regular dark:border-white/10">
                                 <figure class="relative max-w-[250px] mx-auto mb-6">
                                     <div class="relative">
@@ -147,7 +188,10 @@
                             
                             
                             
-                            </nz-form-item>
+                        </nz-form-item>
+                                     
+   
+
                 <nz-form-item nz-row class="register-area" class="mb-0">
                   <nz-form-control>
                     <button class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[30px] h-[44px]" nz-button nzType="primary">Submit</button>

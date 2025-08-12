@@ -43,12 +43,18 @@ export class VideoAddComponent implements OnDestroy {
       txtEndDate: [null, [Validators.required]],
       txtperAdReward: [null, [Validators.required]],
       rdlIsActive: [1, [Validators.required]],
-      ddlPackages: [[], [Validators.required]] // Important: array for multi-select
-
+      ddlPackages: [[], [Validators.required]] ,// Important: array for multi-select
+      isYouTube: [false], // default OFF
+      youtubeLink: ['']
     });
     this.loadData();
     this.getPackages();
-
+   // Optional: clear YouTube link when switch is turned OFF
+    this.form.get('isYouTube')?.valueChanges.subscribe((isYouTube) => {
+      if (!isYouTube) {
+        this.form.get('youtubeLink')?.reset();
+      }
+    });
   } 
 
 

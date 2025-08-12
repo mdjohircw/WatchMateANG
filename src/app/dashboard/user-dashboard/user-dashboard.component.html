@@ -52,7 +52,8 @@
     <div class="flex justify-between">
       <div>
         <h5>Account Balance</h5>
-        <h4  style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.balanceAmount |  currency }}
+        <h4  style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.balanceAmount | currency:'BDT':'code':'1.2-2' }}
+
         </h4>
         
         <div class="flex items-center gap-2 mt-2">
@@ -76,7 +77,7 @@
     <div class="flex justify-between">
       <div>
         <h5>Your Package </h5>
-        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">  {{ blanceAmount.packagePrice | currency }}
+        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">  {{ blanceAmount.packagePrice | currency:'BDT':'code':'1.2-2'  }}
         </h4>
         <div class="flex items-center gap-2 mt-2">
           <span class="flex items-center text-sm text-green-500 font-medium gap-[2px]">
@@ -96,7 +97,7 @@
     <div class="flex justify-between">
       <div>
         <h5>Per Day Income <!-- <small>(Loan + Interest)</small> --> </h5>
-        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.perDayReward | currency }}
+        <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]">{{ blanceAmount.perDayReward | currency:'BDT':'code':'1.2-2'  }}
         </h4>
         <div class="flex items-center gap-2 mt-2">
           <span class="flex items-center text-sm text-red-500 font-medium gap-[2px]">
@@ -115,7 +116,7 @@
   <div nz-col class="bg-white dark:bg-white/10 p-[25px] rounded-10 relative overflow-hidden">
     <div class="flex justify-between">
       <div>
-        <h5>Monthly Installment</h5>
+        <h5>Pending Withdraw</h5>
         <h4 style="padding: 15px 0px;" class="text-3xl font-semibold text-dark dark:text-white/[.87]"> {{ blanceAmount.monthlyInstallment | currency }}
         </h4>
         <div class="flex items-center gap-2 mt-2">
@@ -278,7 +279,7 @@
                       </div>
                     </td>
                     <td class="px-[20px] py-4 text-dark text-[15px]">{{ data.bankName }}</td>
-                    <td class="px-[20px] py-4 text-dark text-[15px]">{{'$'+ data.amount }}</td>
+                    <td class="px-[20px] py-4 text-dark text-[15px]">{{'TK'+ data.amount }}</td>
                     <td class="px-[20px] py-4 text-dark text-[15px]">{{ data.accountNumber }}</td>
                     <td class="px-[20px] py-4 text-dark text-[15px]">{{ data.requestedDate | date:'short' }}</td>
                     <td class="px-[20px] py-4 text-dark text-[15px]">
