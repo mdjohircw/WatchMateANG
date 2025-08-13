@@ -45,14 +45,14 @@ export class VideoAddComponent implements OnDestroy {
       rdlIsActive: [1, [Validators.required]],
       ddlPackages: [[], [Validators.required]] ,// Important: array for multi-select
       isYouTube: [false], // default OFF
-      youtubeLink: ['']
+      txtYoutubeLink: ['']
     });
     this.loadData();
     this.getPackages();
    // Optional: clear YouTube link when switch is turned OFF
     this.form.get('isYouTube')?.valueChanges.subscribe((isYouTube) => {
       if (!isYouTube) {
-        this.form.get('youtubeLink')?.reset();
+        this.form.get('txtYoutubeLink')?.reset();
       }
     });
   } 
@@ -120,6 +120,8 @@ submitForm(): void {
   formData.append('EndDate', this.validateForm.value.txtEndDate.toISOString());
   formData.append('RewardPerView', this.validateForm.value.txtperAdReward);
   formData.append('IsActive', this.validateForm.value.rdlIsActive.toString());
+  formData.append('IsYouTubeVideo', this.validateForm.value.isYouTube.toString());
+  formData.append('YoutubeVideoUrl', this.validateForm.value.txtYoutubeLink.toString());
   formData.append('videoFile', this.videoFile);
 
   // ✅ Fix is here: using validateForm instead of this.form

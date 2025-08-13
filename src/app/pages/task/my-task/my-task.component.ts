@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PackageService } from 'src/app/core/services/package.service';
 
@@ -14,12 +15,27 @@ export class MyTaskComponent {
 allDatas: any[] = [];
 isLoading = true;
 currentIndex = 0;
-  constructor(private fb: UntypedFormBuilder, private Package: PackageService ,private router: Router) {}
+  constructor(private fb: UntypedFormBuilder, private Package: PackageService ,private router: Router,private sanitizer: DomSanitizer) {}
 
 ngOnInit(): void {
   this.getRechargeRequests();
 }
+ getYouTubeEmbedUrl(url: string): SafeResourceUrl {
+    if (!url) return '';
 
+    let videoId = '';
+
+    if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1].split('?')[0];
+    } else if (url.includes('watch?v=')) {
+      videoId = url.split('watch?v=')[1].split('&')[0];
+    } else if (url.includes('embed/')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
 getRechargeRequests(): void {
   this.Package.getCustomerVideos().subscribe({
     next: (response) => {
