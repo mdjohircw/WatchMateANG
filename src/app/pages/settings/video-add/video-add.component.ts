@@ -109,8 +109,11 @@ export class VideoAddComponent implements OnDestroy {
   // Optional: Call this on form submit
 
 submitForm(): void {
-  if (!this.validateForm.valid || !this.videoFile) {
-    this.message.error('Please fill all required fields and upload a video.');
+  const isYouTubeVideo = this.validateForm.value.isYouTube;
+
+  // ✅ Conditional validation for videoFile
+  if (!this.validateForm.valid || (!isYouTubeVideo && !this.videoFile)) {
+    this.message.error('Please fill all required fields and upload a video if not YouTube.');
     return;
   }
 
@@ -120,11 +123,15 @@ submitForm(): void {
   formData.append('EndDate', this.validateForm.value.txtEndDate.toISOString());
   formData.append('RewardPerView', this.validateForm.value.txtperAdReward);
   formData.append('IsActive', this.validateForm.value.rdlIsActive.toString());
-  formData.append('IsYouTubeVideo', this.validateForm.value.isYouTube.toString());
-  formData.append('YoutubeVideoUrl', this.validateForm.value.txtYoutubeLink.toString());
-  formData.append('videoFile', this.videoFile);
+  formData.append('IsYouTubeVideo', isYouTubeVideo.toString());
+  formData.append('YoutubeVideoUrl', this.validateForm.value.txtYoutubeLink || '');
 
-  // ✅ Fix is here: using validateForm instead of this.form
+  // ✅ Append videoFile only if needed
+  if (!isYouTubeVideo && this.videoFile) {
+    formData.append('videoFile', this.videoFile);
+  }
+
+  // ✅ Package IDs
   const selectedPackages: number[] = this.validateForm.value.ddlPackages;
   const packageIdString = selectedPackages.map(id => `'${id}'`).join(',');
   formData.append('PackageIds', packageIdString);
