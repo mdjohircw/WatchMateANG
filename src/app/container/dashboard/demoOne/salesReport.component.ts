@@ -41,7 +41,7 @@ import { DashboardService } from 'src/app/core/services/dashboardService';
     class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto max-sm:mb-[15px]">
     <h1
       class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">
-      Disbursed and Recovered Summary </h1>
+     Up Comming  </h1>
       <div class="py-[16px]">
         <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
           <svg-icon class=" text-light dark:text-white/60 dark:group-hover:text-white/[.87] w-[24px] h-[24px] [&>svg]:w-[24px] [&>svg]:h-[24px]" src="assets/images/svg/feather/more-horizontal.svg"></svg-icon>

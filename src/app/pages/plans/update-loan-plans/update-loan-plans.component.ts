@@ -49,7 +49,8 @@ isLoading = true;
       txtPlanName: [null, [Validators.required]],          // Plan Name → packageName
       txtPriceAmount: [null, [Validators.required]],       // Price → price
       txtValidatyDay: [null, [Validators.required]],       // Validity Days → validityDays
-      txtmaxDailyViews: [null, [Validators.required]],     // Max Daily Views → maxDailyViews
+      txtmaxDailyViews: [null, [Validators.required]],   
+      txtRefBonus: [null, [Validators.required]],   
       txtperAdReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
       rdlIsActive: new FormControl(1, [Validators.required]) // isActive (radio)
     });
@@ -76,6 +77,7 @@ isLoading = true;
     price: +this.validateForm.value.txtPriceAmount,
     validityDays: +this.validateForm.value.txtValidatyDay,
     maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
+    refBonus: +this.validateForm.value.txtRefBonus,
     perAdReward: +this.validateForm.value.txtperAdReward,
     status: this.validateForm.value.rdlIsActive === 1 ? 1 : 0,
     userId: 1 // You can replace this with the current user ID dynamically if needed
@@ -133,6 +135,7 @@ isLoading = true;
         txtValidatyDay: data.validityDays,      // validityDays → txtValidatyDay
         txtmaxDailyViews: data.maxDailyViews,   // maxDailyViews → txtmaxDailyViews
         txtperAdReward: data.perAdReward,       // perAdReward → txtperAdReward
+        txtRefBonus: data.refBonus,       // perAdReward → txtperAdReward
         rdlIsActive: data.status                // status → rdlIsActive (1 = active)
       });
     }

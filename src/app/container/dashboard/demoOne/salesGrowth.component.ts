@@ -40,20 +40,20 @@ export type ChartOptions = {
     class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto max-sm:mb-[15px]">
     <h1
       class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">
-      Recharge & Withdrawal Summary</h1>
+      Withdrawal Summary</h1>
   </div>
   <div class="p-[25px] pt-0">
     <div class="flex items-center justify-center max-ssm:flex-col max-ssm:gap-y-[15px]">
       <div class="relative flex items-center mx-3">
         <span
-          class="inline-block text-dark dark:text-white/[.87] me-1 ms-2.5 text-[18px] font-semibold">$8,550</span>
+          class="inline-block text-dark dark:text-white/[.87] me-1 ms-2.5 text-[18px] font-semibold">8,550</span>
         <span class="flex items-center text-sm font-medium text-success">
             <svg-icon class="w-[20px] h-[20px] [&>svg]:w-full [&>svg]:h-full" src="assets/images/svg/unicons-line/arrow-up.svg"></svg-icon>
           25% </span>
       </div>
       <div class="relative flex items-center mx-3">
         <span
-          class="inline-block text-dark dark:text-white/[.87] me-1 ms-2.5 text-[18px] font-semibold">$5,550</span>
+          class="inline-block text-dark dark:text-white/[.87] me-1 ms-2.5 text-[18px] font-semibold">5,550</span>
         <span class="flex items-center text-sm font-medium text-danger">
             <svg-icon class="w-[20px] h-[20px] [&>svg]:w-full [&>svg]:h-full" src="assets/images/svg/unicons-line/arrow-down.svg"></svg-icon>
             15% </span>

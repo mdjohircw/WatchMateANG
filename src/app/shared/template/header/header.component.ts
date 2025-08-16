@@ -21,6 +21,7 @@ export class HeaderComponent{
     appAuthorMenu = authorMenu.appAuthorMenu;
     appSettings = settings.appSettings;
     userName: string | null = '';
+    ReferralCode: string | null = '';
 
     constructor( private themeService: ThemeConstantService, private auth:AuthService) {}
 
@@ -30,10 +31,15 @@ export class HeaderComponent{
 
     ngOnInit(): void {
         this.userName = sessionStorage.getItem('__userName__');
+        this.ReferralCode = sessionStorage.getItem('__UserReferralCode__');
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
     }
-
+    copyReferralCode(): void {
+    navigator.clipboard.writeText(this.ReferralCode).then(() => {
+        console.log('Referral code copied!');
+    });
+}
     toggleFold() {
         this.isFolded = !this.isFolded;
         this.themeService.toggleFold(this.isFolded);

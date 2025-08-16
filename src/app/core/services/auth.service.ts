@@ -96,6 +96,7 @@ export class AuthService {
         sessionStorage.setItem('__companyId__', response.data.companyId || '');
         sessionStorage.setItem('__DataAccessLevel__', response.data.dataAccessLevel || '');
         sessionStorage.setItem('__LoanId__', response.data.loanId || '');
+        sessionStorage.setItem('__UserReferralCode__', response.data.usedReferralCode || '');
   
         this.currentUserSubject.next(response);
         this.isAuthenticated.next(true);

@@ -162,13 +162,43 @@
                 </figcaption>
               </figure>
               <ul nz-menu class="mb-0 bg-transparent shadow-none">
-                <li class="p-0 dark:hover:text-white hover:bg-primary/10 dark:hover:bg-white/10 rounded-4" nz-menu-item *ngFor="let authorMenu of appAuthorMenu">
+
+                <!-- Dynamic Menu -->
+                <li class="p-0 dark:hover:text-white hover:bg-primary/10 dark:hover:bg-white/10 rounded-4" nz-menu-item
+                  *ngFor="let authorMenu of appAuthorMenu">
                   <button
                     class="inline-flex items-center text-light dark:text-white/60 hover:text-primary hover:ps-6 w-full px-2.5 py-3 text-sm transition-all ease-in-out delay-150">
-                      <svg-icon class="h-fit me-4 [&>svg]:w-[18px] [&>svg]:h-[18px]" src="assets/images/svg/feather/{{authorMenu.icon}}.svg" alt="{{authorMenu.icon}}"></svg-icon>
-                      {{authorMenu.label}}</button>
-                  </li>
+                    <svg-icon class="h-fit me-4 [&>svg]:w-[18px] [&>svg]:h-[18px]"
+                      src="assets/images/svg/feather/{{authorMenu.icon}}.svg" alt="{{authorMenu.icon}}">
+                    </svg-icon>
+                    {{authorMenu.label}}
+                  </button>
+                </li>
+
+                <!-- Static Referral Code -->
+                <li class="p-0 dark:hover:text-white hover:bg-primary/10 dark:hover:bg-white/10 rounded-4" nz-menu-item>
+                  <div
+                    class="inline-flex items-center justify-between text-light dark:text-white/60 hover:text-primary w-full px-2.5 py-3 text-sm transition-all ease-in-out delay-150">
+
+                    <!-- Referral Code Icon -->
+                    <div class="inline-flex items-center">
+                      <svg-icon class="h-fit me-4 [&>svg]:w-[18px] [&>svg]:h-[18px]" src="assets/images/svg/feather/tag.svg"
+                        alt="Referral Code">
+                      </svg-icon>
+                      রেফারেল কোড: {{ReferralCode}}
+                    </div>
+
+                    <!-- Copy Icon -->
+                    <button (click)="copyReferralCode()" class="ml-2 text-primary hover:text-green-500">
+                      <svg-icon class="[&>svg]:w-[16px] [&>svg]:h-[16px]" src="assets/images/svg/feather/copy.svg" alt="Copy">
+                      </svg-icon>
+                    </button>
+                  </div>
+                </li>
+
               </ul>
+
+         
               <a
                 class="flex items-center justify-center text-sm font-medium bg-[#f4f5f7] dark:bg-[#32333f] h-[50px] text-light hover:text-primary dark:hover:text-white/60 dark:text-white/[.87] mx-[-15px] mb-[-15px] rounded-b-6"
                 href="#" (click)="signOut()">

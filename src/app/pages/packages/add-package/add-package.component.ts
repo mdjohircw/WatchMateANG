@@ -17,6 +17,7 @@ export class AddPackageComponent implements OnInit{
   paymentAccounts: any[] = [];
 isVisible = false;
 transactionId = '';
+refRenceCode = '';
 selectedPackageId: number | null = null;
 selectedPackageprice: number | null = null;
 selectedPackageName: string = '';
@@ -122,7 +123,8 @@ submit(): void {
     packageId: this.selectedPackageId,
     status: 1, // e.g. Active
     payMethodID: selectedAccount.id, // This is now dynamic
-    transctionCode: this.transactionId || ''
+    transctionCode: this.transactionId || '',
+    usedReferralCode:this.refRenceCode,
   };
 
   this.isSubmitting = true;

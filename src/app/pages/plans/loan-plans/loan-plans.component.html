@@ -47,7 +47,7 @@
                           >
                           Price
                           </nz-form-label>
-                          <nz-input-group [nzPrefix]="'$'">
+                          <nz-input-group [nzPrefix]="'TK'">
                             <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtPriceAmount" formControlName="txtPriceAmount" Placeholder="Amount" />
                           </nz-input-group>
                         </nz-form-control>
@@ -93,7 +93,19 @@
                             " />
                         </nz-form-control>
                       </div>
-         
+                          <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                        <nz-form-control  class="mb-[10px]" nzErrorTip="Please input Per Ad Reward">
+                          <nz-form-label
+                            class="flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize"
+                            nzFor="txtRefBonus"
+                            nzRequired
+                          >
+                            Refarence Bonus
+                          </nz-form-label>
+                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtRefBonus" formControlName="txtRefBonus" Placeholder="Ref Bonus
+                            " />
+                        </nz-form-control>
+                      </div>
                       <div nz-col nzMd="8" nzSm="12" nzXs="24">
                         <nz-form-control nxMd="8" nzXs="24" class="mb-[10px]" nzErrorTip="The input is not valid Employee Type!">
                             <nz-form-label class="opacity:0 flex items-center [&>label]:text-dark [&>label]:dark:text-white/60 mb-[10px] p-0 text-[15px] capitalize" nzRequired nzFor="rdlIsActive">Status</nz-form-label>

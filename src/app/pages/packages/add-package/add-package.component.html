@@ -31,7 +31,7 @@
 
             <!-- Price -->
             <h1 class="text-4xl font-bold text-dark dark:text-white/[.87] flex items-end gap-2">
-              <sup class="text-lg text-gray-400 -translate-y-2">$</sup>{{ card.price }}
+              <sup class="text-lg text-gray-400 -translate-y-2"></sup>{{ card.price }}
               <sub class="text-sm text-gray-500 capitalize">{{ card.billingType }}</sub>
             </h1>
 
@@ -85,6 +85,7 @@
     <div [ngClass]="getMainClass(account.bankOrWalletName)">
       <p class="text-center font-semibold text-lg">ট্রানজেকশন আইডি দিন</p>
       <input nz-input [(ngModel)]="transactionId" placeholder="ট্রানজেকশন আইডি দিন" class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"/>
+      <input nz-input [(ngModel)]="refRenceCode" placeholder="রেফারেল আইডি দিন" class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"/>
 
       <p class="text-white-800 text-sm leading-6 space-y-3">
 
