@@ -119,7 +119,7 @@ export class PackagesByCustomerComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.Package.getRechargeListById(customerId).subscribe({
+        this.Package.getDeletePackageByCustomer(customerId).subscribe({
           next: (response: any) => {
             if (response?.statusCode === 200) {
               Swal.fire({

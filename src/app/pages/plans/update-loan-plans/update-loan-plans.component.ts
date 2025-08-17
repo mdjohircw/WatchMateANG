@@ -79,7 +79,7 @@ isLoading = true;
     maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
     refBonus: +this.validateForm.value.txtRefBonus,
     perAdReward: +this.validateForm.value.txtperAdReward,
-    status: this.validateForm.value.rdlIsActive === 1 ? 1 : 0,
+    status: this.validateForm.value.rdlIsActive,
     userId: 1 // You can replace this with the current user ID dynamically if needed
   };
     this.isLoading = true;
@@ -111,7 +111,7 @@ isLoading = true;
   }
   
   getLoanPlanByeId(planID: number): void {
-    console.log("Fetching Loan Plan ID:", planID);
+    console.log("Fetching Plan ID:", planID);
   
     this.LoanpPlan.getLoanPlanById(planID).subscribe(
       (response) => {
@@ -119,11 +119,11 @@ isLoading = true;
           const loanPlan = response.data;
           this.populateLoanPlanForm(loanPlan);
         } else {
-          console.warn('No loan plan data found for the provided ID.');
+          console.warn('No plan data found for the provided ID.');
         }
       },
       (error) => {
-        console.error('Error fetching loan plan:', error);
+        console.error('Error fetching plan:', error);
       }
     );
   }
@@ -136,7 +136,7 @@ isLoading = true;
         txtmaxDailyViews: data.maxDailyViews,   // maxDailyViews → txtmaxDailyViews
         txtperAdReward: data.perAdReward,       // perAdReward → txtperAdReward
         txtRefBonus: data.refBonus,       // perAdReward → txtperAdReward
-        rdlIsActive: data.status                // status → rdlIsActive (1 = active)
+        rdlIsActive: data.status.toString()
       });
     }
 

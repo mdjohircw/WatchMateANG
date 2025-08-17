@@ -17,7 +17,7 @@ export class LoanPlanService {
     private companyId: string | null;
     private customerId: string | null;
     private userId: string | null;
-    private GET_LOAN_PLANS = `api/Package/packages`;
+    private GET_LOAN_PLANS = `api/Package/all-packages`;
     private POST_LOAN_PLANS = `api/Package/create`;
     private UPDATE_PLANS = `api/Package/update`;
     private GET_PLANS_BYE_ID = `api/Package/package`;
@@ -57,7 +57,7 @@ export class LoanPlanService {
       const url = `${this.POST_LOAN_PLANS}`; // Use template literal for better readability
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
-          console.error('Error occurred while saving Loan Loan Plan:', error);
+          console.error('Error occurred while saving Loan Plan:', error);
           const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
              console.log(errorMessage);
              Swal.fire({
@@ -65,7 +65,7 @@ export class LoanPlanService {
                title: 'Submission Failed',
                text: errorMessage
              });
-          return throwError(() => new Error('Failed to save Loan Plan'));
+          return throwError(() => new Error('Failed to save Plan'));
         })
       );
     }
@@ -74,7 +74,7 @@ export class LoanPlanService {
       const url = `${this.UPDATE_PLANS}/${id}`; // Use template literal for better readability
       return this.genericHttpService.update(url, postData).pipe(
         catchError((error) => {
-          console.error('Error occurred while saving Loan Loan Plan:', error);
+          console.error('Error occurred while saving Loan Plan:', error);
           const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
              console.log(errorMessage);
              Swal.fire({

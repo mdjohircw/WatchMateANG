@@ -75,7 +75,7 @@ submitForm(): void {
     maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
     perAdReward: +this.validateForm.value.txtperAdReward,
     refBonus: +this.validateForm.value.txtRefBonus,
-    isActive: this.validateForm.value.rdlIsActive === 1 ? 1 : 0,
+    status: this.validateForm.value.rdlIsActive,
     userId: 1 // You can replace this with the current user ID dynamically if needed
   };
 

@@ -24,7 +24,7 @@ export class PackageService {
     private POST_PACKAGE_REQUEST  = `api/CustomerPackage/create`;
     private PUR_RECHARGE_REQUEST = `api/Recharge/update`;
     private PUT_RECHARGE_APPROVE = `api/Recharge/approve`;
-    private GET_RECHARGE_BYE_ID = `api/Recharge/recharge`;
+    private DELETE_CUSTOMER_PACKAGE_BY_CUSTOMER = `api/CustomerPackage/delete-by-customer`;
     private GET_PACKGE_BYE_CUSTOMERID = `api/CustomerPackage/get-customer-package`;
     private GET_VIDEO_BYE_CUSTOMERID = `api/Video/videos`;
     private POST_VIDEO_REWARD = `api/Video/videos/reward?`;
@@ -38,8 +38,8 @@ export class PackageService {
       this.dataAccessLevel = sessionStorage.getItem('__DataAccessLevel__');
 
     }
-    getRechargeListById(id:any): Observable<any> {
-      return this.genericHttpService.getById<any>(this.GET_RECHARGE_BYE_ID, id).pipe(
+    getDeletePackageByCustomer(id:any): Observable<any> {
+      return this.genericHttpService.getById<any>(this.DELETE_CUSTOMER_PACKAGE_BY_CUSTOMER, id).pipe(
           map((response: any) => {
               if (response) {
                   return response;
@@ -108,14 +108,14 @@ export class PackageService {
       catchError((error) => {
         console.error('Error occurred while saving leave application:', error);
 
-        const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+        const errorMessage = error?.error?.message || 'Failed to submit. Please try again.';
         console.log(errorMessage);
         Swal.fire({
           icon: 'error',
           title: 'Approve Failed',
           text: errorMessage
         });
-        return throwError(() => new Error('Failed to save recharge request application'));
+        return throwError(() => new Error('Failed to submit. Please try again'));
       })
     );
   }
@@ -124,7 +124,7 @@ export class PackageService {
       const url = `${this.POST_PACKAGE_REQUEST}`; // Use template literal for better readability
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
-          console.error('Error occurred while saving Loan application:', error);
+          console.error('Error occurred while saving application:', error);
           const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
              console.log(errorMessage);
              Swal.fire({
@@ -132,7 +132,7 @@ export class PackageService {
                title: 'Submission Failed',
                text: errorMessage
              });
-          return throwError(() => new Error('Failed to save Loan application'));
+          return throwError(() => new Error('Failed to save application'));
         })
       );
     }
@@ -141,14 +141,14 @@ export class PackageService {
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
           console.error('Error occurred while saving Loan application:', error);
-          const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+          const errorMessage = error?.error?.message || 'Failed to submit. Please try again.';
              console.log(errorMessage);
              Swal.fire({
                icon: 'error',
                title: 'Submission Failed',
                text: errorMessage
              });
-          return throwError(() => new Error('Failed to save Loan application'));
+          return throwError(() => new Error('Failed to save application'));
         })
       );
     }
@@ -157,15 +157,15 @@ export class PackageService {
       const url = `${this.POST_VIDEO_REWARD}`; // Use template literal for better readability
       return this.genericHttpService.create(url, postData).pipe(
         catchError((error) => {
-          console.error('Error occurred while saving Loan application:', error);
-          const errorMessage = error?.error?.message || 'Failed to submit loan. Please try again.';
+          console.error('Error occurred while saving application:', error);
+          const errorMessage = error?.error?.message || 'Failed to submit. Please try again.';
              console.log(errorMessage);
              Swal.fire({
                icon: 'warning',
                title: 'Submission Failed',
                text: errorMessage
              });
-          return throwError(() => new Error('Failed to save Loan application'));
+          return throwError(() => new Error('Failed to save application'));
         })
       );
     }
