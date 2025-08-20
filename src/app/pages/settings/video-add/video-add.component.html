@@ -86,10 +86,20 @@
                             nzRequired
                           >
                            Min Watch Time
-                          </nz-form-label>
-                          <nz-input-group>
-                            <input class="w-full rounded-6 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input id="txtperAdReward" formControlName="txtperAdReward" Placeholder=" Reward Per View" />
-                          </nz-input-group>
+                      </nz-form-label>
+                    <nz-input-group>
+                      <input 
+                        type="text"
+                        class="w-full rounded-6 border-normal border-1 text-[15px] 
+                              dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] 
+                              min-h-[50px] outline-none placeholder:text-[#A0A0A0] 
+                              text-theme-gray dark:text-white/60"
+                        nz-input
+                        id="txtMinWatchTime"
+                        formControlName="txtMinWatchTime"
+                        placeholder="HH:mm:ss (e.g. 01:04:20)" />
+                    </nz-input-group>
+
                         </nz-form-control>
                       </div>
                     <div nz-col nzMd="8" nzSm="12" nzXs="24">

@@ -5,6 +5,7 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { LoanPlanService } from 'src/app/core/services/loanPlanService';
 import Swal from 'sweetalert2';
 import { ActivatedRoute ,Router} from '@angular/router';
+import { text } from 'stream/consumers';
 
 interface Person {
   id: string;
@@ -52,6 +53,7 @@ isLoading = true;
       txtmaxDailyViews: [null, [Validators.required]],   
       txtRefBonus: [null, [Validators.required]],   
       txtperAdReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
+      txtperDayReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
       rdlIsActive: new FormControl(1, [Validators.required]) // isActive (radio)
     });
   }
@@ -79,6 +81,7 @@ isLoading = true;
     maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
     refBonus: +this.validateForm.value.txtRefBonus,
     perAdReward: +this.validateForm.value.txtperAdReward,
+    perDayReward: +this.validateForm.value.txtperDayReward,
     status: this.validateForm.value.rdlIsActive,
     userId: 1 // You can replace this with the current user ID dynamically if needed
   };
@@ -134,7 +137,8 @@ isLoading = true;
         txtPriceAmount: data.price,             // price → txtPriceAmount
         txtValidatyDay: data.validityDays,      // validityDays → txtValidatyDay
         txtmaxDailyViews: data.maxDailyViews,   // maxDailyViews → txtmaxDailyViews
-        txtperAdReward: data.perAdReward,       // perAdReward → txtperAdReward
+        txtperAdReward: data.perAdReward, 
+        txtperDayReward:data.perDayReward,    
         txtRefBonus: data.refBonus,       // perAdReward → txtperAdReward
         rdlIsActive: data.status.toString()
       });

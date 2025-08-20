@@ -34,6 +34,7 @@ ngOnInit(): void {
     txtValidatyDay: [null, [Validators.required]],       // Validity Days → validityDays
     txtmaxDailyViews: [null, [Validators.required]],     // Max Daily Views → maxDailyViews
     txtperAdReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
+    txtperDayReward: [null, [Validators.required]],       // Per Ad Reward → perAdReward
     txtRefBonus: [null, [Validators.required]],       // Per Ad Reward → perAdReward
     rdlIsActive: new FormControl(1, [Validators.required]) // isActive (radio)
   });
@@ -74,6 +75,7 @@ submitForm(): void {
     validityDays: +this.validateForm.value.txtValidatyDay,
     maxDailyViews: +this.validateForm.value.txtmaxDailyViews,
     perAdReward: +this.validateForm.value.txtperAdReward,
+    perDayReward: +this.validateForm.value.txtperAdReward,
     refBonus: +this.validateForm.value.txtRefBonus,
     status: this.validateForm.value.rdlIsActive,
     userId: 1 // You can replace this with the current user ID dynamically if needed

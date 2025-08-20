@@ -43,6 +43,7 @@ export class VideoAddComponent implements OnDestroy {
       txtEndDate: [null, [Validators.required]],
       txtperAdReward: [null, [Validators.required]],
       rdlIsActive: [1, [Validators.required]],
+      txtMinWatchTime: [null, [Validators.required, Validators.pattern(/^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/)]],
       ddlPackages: [[], [Validators.required]] ,// Important: array for multi-select
       isYouTube: [false], // default OFF
       txtYoutubeLink: ['']
@@ -123,6 +124,16 @@ submitForm(): void {
   formData.append('EndDate', this.validateForm.value.txtEndDate.toISOString());
   formData.append('RewardPerView', this.validateForm.value.txtperAdReward);
   formData.append('IsActive', this.validateForm.value.rdlIsActive.toString());
+
+    let minWatchTime = this.validateForm.value.txtMinWatchTime;
+
+    // ensure format HH:mm:ss before sending
+    if (!/^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/.test(minWatchTime)) {
+      this.message.error('Invalid time format. Use HH:mm:ss (e.g., 01:04:20)');
+      return;
+    }
+
+  formData.append('MinWatchingTime', minWatchTime);
   formData.append('IsYouTubeVideo', isYouTubeVideo.toString());
   formData.append('YoutubeVideoUrl', this.validateForm.value.txtYoutubeLink || '');
 
