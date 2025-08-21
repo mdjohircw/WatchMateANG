@@ -62,6 +62,7 @@ getPackageRequests(): void {
             `Per Ad Reward: $${item.perAdReward}`,
             `Validity: ${item.validityDays} Days`,
             `Max Daily Views: ${item.maxDailyViews}`,
+            `Referral Bonus: ${item.refBonus}`,
             `Status: ${item.status === 1 ? 'Active' : 'Inactive'}`
           ],
           buttonText: 'Buy Now'
